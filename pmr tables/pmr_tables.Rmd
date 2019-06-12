@@ -13,8 +13,8 @@ library(kableExtra)
 
 ```{r, cache = TRUE, include = FALSE}
 # Load datasets
-mort65plus = read_csv("./mort17_65plus.csv")
-icd10_df = read_csv("icd10_hierarchy.csv")
+mort65plus = read_csv("../mort17_65plus.csv")
+icd10_df = read_csv("../icd10_hierarchy.csv")
 icd10_3digit = icd10_df %>% select(icd10code, three_digit, major)
 ```
 
@@ -423,48 +423,4 @@ plot2 %>% ggplot(aes(x = age_grp, y = PAR)) +
 
 ```
 
-### PMR Differences over Age Groups
-
-```{r, echo = FALSE}
-# Select top ICD10 by PAR
-top10_1 = top_n(y65, 10, PMR)
-top10_2 = top_n(y90, 10, PMR)
-top10 = rbind(top10_1, top10_2) %>% 
-  distinct(ICD10)
-
-#
-y65_1 = y65 %>% 
-  mutate(age_grp = "65-69") %>% 
-  filter(ICD10 %in% top10$ICD10)
-
-y70_1 = y70 %>% 
-  mutate(age_grp = "70-74") %>% 
-  filter(ICD10 %in% top10$ICD10)
-
-y75_1 = y75 %>% 
-  mutate(age_grp = "75-79") %>% 
-  filter(ICD10 %in% top10$ICD10)
-
-y80_1 = y80 %>% 
-  mutate(age_grp = "80-84") %>% 
-  filter(ICD10 %in% top10$ICD10)
-
-y85_1 = y85 %>% 
-  mutate(age_grp = "85-89") %>% 
-  filter(ICD10 %in% top10$ICD10)
-
-y90_1 = y90 %>% 
-  mutate(age_grp = "90+") %>% 
-  filter(ICD10 %in% top10$ICD10)
-
-plot2 = rbind(y65_1, y70_1, y75_1, y80_1, y85_1, y90_1)
-
-plot2 %>% ggplot(aes(x = age_grp, y = PMR)) +
-  geom_line(aes(group = ICD10, color = ICD10)) + 
-  geom_text(aes(label = ICD10, x = "90+", y = PMR, color = ICD10)) + 
-  labs(title = "Changes in PMR over age groups",
-       x = "Age Group") + 
-  guides(color = FALSE) +
-  theme_bw()
-```
 
