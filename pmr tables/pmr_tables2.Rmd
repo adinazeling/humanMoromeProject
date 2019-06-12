@@ -1,0 +1,328 @@
+---
+title: "PMR Tables, Age-Sex Adjusted with Three ICD10 Digits"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(kableExtra)
+```
+
+```{r, include = FALSE, message = FALSE}
+# Load datasets
+mort65plus = read_csv("./mort17_65plus.csv")
+icd10_df = read_csv("icd10_hierarchy.csv") %>% 
+  select(icd10code, three_digit, major)
+```
+
+```{r, include = FALSE}
+# Create age and sex adjusted tables
+# New age group
+mort65plus = mort65plus %>% 
+  filter(age_value < 120) %>% 
+  mutate(age_grp = cut(age_value, 
+                       c(65, 70, 75, 80, 85, 90, 120), 
+                       right = FALSE))
+
+age_sex = mort65plus %>% 
+  select(age_grp, sex, icd10, ra2:ra20)
+
+# Nest data by age_grp and sex
+age_sex_nest = nest(age_sex, icd10:ra20)
+
+# Create functions from previous code to apply across each dataset
+# Function that filters for falls dataset
+falls_death = function(data){
+  data %>% 
+  filter(grepl("W", icd10)) %>%
+  mutate(number = str_sub(icd10, 2, 3)) %>% 
+  filter(number <= 19) %>% select(-number)
+}
+
+# Function to join icd10_df to data
+join_icd10 = function(data){
+  full_join(data, icd10_df, by = "icd10code")
+}
+
+# Function to turn falls dataframe into a "tidy" version
+tidy = function(data){
+  data = data %>% 
+    gather(key = ra_position, value = icd10code, ra2:ra20)
+  join_icd10(data)
+}
+
+# Function to count icd10 values for overall group
+count_grp = function(data){
+  data = data %>% 
+    gather(key = ra_position, value = icd10code, ra2:ra20) %>% 
+    na.omit()
+  full_join(data, icd10_df, by = "icd10code") %>% 
+    group_by(three_digit) %>% 
+    summarize(n = n())
+}
+  
+# Function to count icd10 values for those with falls
+count_fall = function(data){
+  data %>% na.omit() %>% 
+  group_by(three_digit) %>% 
+  summarize(obs = n())
+}
+
+# Function to calculate PMR and PAR from observed and expected values
+# Filter out any observations less than 10
+pmr = function(count1, count2, data, fall){
+  full_join(count1, count2, by = "three_digit") %>% 
+    mutate(prev = n / dim(data)[1],
+         prev_fall = obs / dim(fall)[1],
+         expect = round(prev * dim(fall)[1], digits = 2)) %>% 
+    na.omit()
+}
+
+adjust = function(data){
+  # Unnest nested data and aggregate across obs and expected values
+  summary = data %>% unnest(summary)
+  count = data %>% 
+    unnest(count) %>% 
+    group_by(three_digit) %>% 
+    summarize(n = sum(n))
+  
+  # Calculate adjusted pmr and 95% CI 
+  temp = summary %>% 
+    group_by(three_digit, nfall, ntotal) %>% 
+    summarize(obs = sum(obs),
+              exp = sum(expect)) %>% 
+    mutate(pmr = round(obs/exp, digits = 2),
+           se_pmr = round(sqrt(obs)/exp, digits = 2),
+           l95_pmr = round(pmr - 1.96 * se_pmr, digits = 2),
+           u95_pmr = round(pmr + 1.96 * se_pmr, digits = 2)) %>% 
+    filter(!str_detect(three_digit, "^S"),
+           !str_detect(three_digit, "^T"),
+           exp > 1, pmr > 1.5)
+  
+  # Calculate PAR and arrange in order
+  full_join(count, temp, by = "three_digit") %>% 
+  na.omit() %>% 
+  mutate(prev = n/ntotal,
+         par = round(100 * ((prev * (pmr - 1)) / 
+                              (prev * (pmr - 1) + 1)), digits = 2)) %>% 
+  arrange(desc(par))
+}
+
+
+# Function to tidy up the summary
+clean_summary = function(data){
+  icd10_df = distinct(icd10_df, three_digit, major)
+  full_join(data, icd10_df, by = "three_digit") %>%
+    filter(!is.na(pmr)) %>% 
+    select(three_digit, obs, exp, pmr, l95_pmr, u95_pmr, par, major) %>% 
+    unite(PMR_95CI, l95_pmr, u95_pmr, sep = ", ") %>%
+    mutate(PMR_95CI = paste0("(", PMR_95CI, ")")) %>% 
+    rename(ICD10 = three_digit,
+           Obs = obs,
+           Exp = exp,
+           PMR = pmr,
+           PAR = par,
+           Description = major)
+}
+```
+
+```{r, include = FALSE}
+# Apply all functions to the nested dataframes
+# Create tables that summarize PMR for each age-sex group
+age_sex_nest = age_sex_nest %>% 
+  mutate(falls = map(.x = data, ~falls_death(.x))) %>% 
+  mutate(tidy = map(.x = falls, ~tidy(.x))) %>% 
+  mutate(count = map(.x = data, ~count_grp(.x)),
+         count_fall = map(.x = tidy, ~count_fall(.x))) %>% 
+  mutate(summary = pmap(list(count, count_fall, data, falls), pmr))
+
+```
+
+```{r, include = FALSE}
+# Adjust for females
+female = age_sex_nest %>% 
+  filter(sex == "F") %>% 
+  mutate(ntotal = map(.x = data, ~dim(.x)[1]),
+         nfall = map(.x = falls, ~dim(.x)[1])) %>% 
+  mutate(ntotal = Reduce("+", ntotal),
+         nfall = Reduce("+", nfall))
+```
+
+### Adjusted for Females (ntotal = `r female$ntotal[1]`, nfalls = `r female$nfall[1]`)
+
+```{r, echo = FALSE}
+female = female %>% adjust() %>% clean_summary()
+
+female[1:50,] %>% knitr::kable(booktabs = T) %>% 
+    kable_styling(latex_options = c("striped", "scale_down"))
+```
+
+\newpage
+
+```{r, echo = FALSE}
+female[51:94,] %>% knitr::kable(booktabs = T) %>% 
+    kable_styling(latex_options = c("striped", "scale_down"))
+```
+
+\newpage 
+
+```{r, include = FALSE}
+# Adjust for Males
+male = age_sex_nest %>% 
+  filter(sex == "M") %>% 
+  mutate(ntotal = map(.x = data, ~dim(.x)[1]),
+         nfall = map(.x = falls, ~dim(.x)[1])) %>% 
+  mutate(ntotal = Reduce("+", ntotal),
+         nfall = Reduce("+", nfall))
+```
+
+### Adjusted for Males (ntotal = `r male$ntotal[1]`, nfalls = `r male$nfall[1]`)
+
+```{r, echo = FALSE}
+male = male %>% adjust() %>% clean_summary()
+
+male[1:50,] %>% knitr::kable(booktabs = T) %>% 
+    kable_styling(latex_options = c("striped", "scale_down"))
+```
+
+\newpage
+
+```{r, echo = FALSE}
+male[51:86,] %>% knitr::kable(booktabs = T) %>% 
+    kable_styling(latex_options = c("striped", "scale_down"))
+```
+
+\newpage 
+
+```{r, include = FALSE}
+# Adjust for 65-69 years
+y65 = age_sex_nest %>% 
+  filter(age_grp == "[65,70)") %>% 
+  mutate(ntotal = map(.x = data, ~dim(.x)[1]),
+         nfall = map(.x = falls, ~dim(.x)[1])) %>% 
+  mutate(ntotal = Reduce("+", ntotal),
+         nfall = Reduce("+", nfall))
+```
+
+### Adjusted for Ages 65-69 Years (ntotal = `r y65$ntotal[1]`, nfalls = `r y65$nfall[1]`)
+
+```{r, echo = FALSE}
+y65 = y65 %>% adjust() %>% clean_summary()
+
+y65 %>% knitr::kable(booktabs = T) %>% 
+    kable_styling(latex_options = c("striped", "scale_down"))
+```
+
+\newpage
+
+```{r, include = FALSE}
+# Adjust for 70-74 years
+y70 = age_sex_nest %>% 
+  filter(age_grp == "[70,75)") %>% 
+  mutate(ntotal = map(.x = data, ~dim(.x)[1]),
+         nfall = map(.x = falls, ~dim(.x)[1])) %>% 
+  mutate(ntotal = Reduce("+", ntotal),
+         nfall = Reduce("+", nfall))
+```
+
+### Adjusted for Ages 70-74 Years (ntotal = `r y70$ntotal[1]`, nfalls = `r y70$nfall[1]`)
+```{r, echo = FALSE}
+y70 = y70 %>% adjust() %>% clean_summary()
+
+y70 %>% knitr::kable(booktabs = T) %>% 
+    kable_styling(latex_options = c("striped", "scale_down"))
+```
+
+\newpage
+
+```{r, include = FALSE}
+# Adjust for 75-79 years
+y75 = age_sex_nest %>% 
+  filter(age_grp == "[75,80)") %>% 
+  mutate(ntotal = map(.x = data, ~dim(.x)[1]),
+         nfall = map(.x = falls, ~dim(.x)[1])) %>% 
+  mutate(ntotal = Reduce("+", ntotal),
+         nfall = Reduce("+", nfall))
+```
+
+### Adjusted for Ages 75-79 Years (ntotal = `r y75$ntotal[1]`, nfalls = `r y75$nfall[1]`)
+
+```{r, echo = FALSE}
+y75 = y75 %>% adjust() %>% clean_summary()
+
+y75[1:58,] %>% knitr::kable(booktabs = T) %>% 
+    kable_styling(latex_options = c("striped", "scale_down"))
+```
+
+\newpage
+
+```{r, include = FALSE}
+# Adjust for 80-84 years
+y80 = age_sex_nest %>% 
+  filter(age_grp == "[80,85)") %>% 
+  mutate(ntotal = map(.x = data, ~dim(.x)[1]),
+         nfall = map(.x = falls, ~dim(.x)[1])) %>% 
+  mutate(ntotal = Reduce("+", ntotal),
+         nfall = Reduce("+", nfall))
+```
+
+### Adjusted for Ages 80-84 Years (ntotal = `r y80$ntotal[1]`, nfalls = `r y80$nfall[1]`)
+
+```{r, echo = FALSE}
+y80 = y80 %>% adjust() %>% clean_summary()
+
+y80[1:50,] %>% knitr::kable(booktabs = T) %>% 
+    kable_styling(latex_options = c("striped", "scale_down"))
+```
+
+\newpage
+
+```{r, include = FALSE}
+# Adjust for 85-89 years
+y85 = age_sex_nest %>% 
+  filter(age_grp == "[85,90)") %>% 
+  mutate(ntotal = map(.x = data, ~dim(.x)[1]),
+         nfall = map(.x = falls, ~dim(.x)[1])) %>% 
+  mutate(ntotal = Reduce("+", ntotal),
+         nfall = Reduce("+", nfall))
+```
+
+### Adjusted for Ages 85-89 Years (ntotal = `r y85$ntotal[1]`, nfalls = `r y85$nfall[1]`)
+
+```{r, echo = FALSE}
+y85 = y85 %>% adjust() %>% clean_summary()
+
+y85 %>% knitr::kable(booktabs = T) %>% 
+    kable_styling(latex_options = c("striped", "scale_down"))
+```
+
+\newpage
+
+```{r, include = FALSE}
+# Adjust for 90+ years
+y90 = age_sex_nest %>% 
+  filter(age_grp == "[90,120)") %>% 
+  mutate(ntotal = map(.x = data, ~dim(.x)[1]),
+         nfall = map(.x = falls, ~dim(.x)[1])) %>% 
+  mutate(ntotal = Reduce("+", ntotal),
+         nfall = Reduce("+", nfall))
+```
+
+### Adjusted for Ages 90+ Years (ntotal = `r y90$ntotal[1]`, nfalls = `r y90$nfall[1]`)
+
+```{r, echo = FALSE}
+y90 = y90 %>% adjust() %>% clean_summary()
+
+y90[1:50,] %>% knitr::kable(booktabs = T) %>% 
+    kable_styling(latex_options = c("striped", "scale_down"))
+```
+
+\newpage
+
+```{r, echo = FALSE}
+y90[51:63,] %>% knitr::kable(booktabs = T) %>% 
+    kable_styling(latex_options = c("striped", "scale_down"))
+```
