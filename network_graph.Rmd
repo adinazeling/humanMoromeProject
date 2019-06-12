@@ -1,0 +1,68 @@
+---
+title: "Network Graphing"
+author: "Adina Zhang"
+date: "May 27, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+library(igraph)
+library(icd.data)
+```
+
+```{r}
+# ICD 10 hierarchy data
+icd10_df = icd10cm2016 %>% 
+  rename(icd10code = code) %>% 
+  data.frame() %>% 
+  mutate(icd10code = as.character(icd10code))
+
+# Assign link data
+link = read_csv("ra_falls_edge.csv") %>% select(-short_desc) %>% 
+  mutate(from = "W00-W19") %>% 
+  select(from, icd10code, obs, expect, pmr, paf)
+
+# Assign node data
+node = full_join(link, icd10_df, by = "icd10code") %>% 
+  filter(!is.na(obs)) %>% 
+  select(icd10code, short_desc, long_desc, three_digit, 
+         major, sub_chapter, chapter, pmr, paf) %>% 
+  add_row(icd10code = "W00-W19") %>% 
+  rename(id = icd10code)
+
+link = link %>% rename(to = icd10code)
+```
+
+
+```{r}
+# Create igraph object
+net <- graph_from_data_frame(d = link, vertices = node, directed = T) 
+net
+```
+
+```{r}
+plot(net)
+
+```
+
+```{r}
+library(visNetwork)
+visNetwork(node, link, width = "100%", height = "400px")
+```
+
+```{r}
+vis.nodes = node
+vis.links = link
+
+vis.nodes$title = vis.nodes$short_desc
+vis.nodes$label = vis.nodes$id
+vis.nodes$size = vis.nodes$paf
+
+visNetwork(vis.nodes, vis.links)
+```
+
+
+

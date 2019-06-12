@@ -1,0 +1,282 @@
+---
+title: "2017 Multiple Mortality Dataset "
+author: "Adina Zhang"
+date: "March 16, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+```
+
+## Load 2017 Multiple Mortality Dataset
+
+```{r}
+mort17 = read_csv("VS17MORT.csv") %>% janitor::clean_names()
+```
+
+```{r}
+# Filter dataset to only have individuals who died at 65 and older
+temp = mort17 %>% 
+  mutate(Age_Value = as.numeric(Age_Value)) %>% 
+  filter(Age_Value >= 65) %>% 
+  janitor::clean_names()
+
+# Save dataset that is filtered to 65 years and older
+write.csv(temp, file = "mort17_65plus.csv")
+```
+
+```{r, message = FALSE, warning = FALSE}
+mort65plus = read_csv("./mort17_65plus.csv")
+```
+
+## Data Exploration
+
+```{r}
+# Descending order of underlying cause counts
+rank_icd10 = mort65plus %>% 
+  group_by(icd10) %>% 
+  summarize(n = n()) %>% 
+  arrange(desc(n)) %>% 
+  mutate(prop = round(n / dim(mort65plus)[1], digits = 3))
+
+rank_icd10
+```
+
+```{r}
+library(stringr)
+
+# Dataset filtered to falls as underlying cause of death
+falls_underlying = mort17 %>% 
+  filter(grepl("W", icd10)) %>% 
+  mutate(number = str_sub(icd10, 2, 3),
+         age_value = as.numeric(age_value)) %>% 
+  filter(number <= 19) %>% select(-number)
+
+# Falls for adults 65 and older
+falls65_underlying = mort65plus %>% 
+  filter(grepl("W", icd10)) %>%
+  mutate(number = str_sub(icd10, 2, 3),
+         age_value = as.numeric(age_value)) %>% 
+  filter(number <= 19) %>% select(-number) %>% 
+  filter(age_value >= 65)
+
+# There are 36,433 observations of adults with falls as underlying cause of death
+# There are 31,244 observations of adults over 65 with falls as underlying cause of death
+
+
+# Count of falls as underlying cause of death for all in dataset
+fall_summary = falls_underlying %>% 
+  group_by(icd10) %>% 
+  summarize(n = n()) %>% 
+  arrange(desc(n)) %>% 
+  mutate(prop = round(n / dim(falls_underlying)[1], digits = 3)) 
+
+fall_summary
+
+# Count of falls as underlying cause of death for 65 years
+fall65_summary = falls65_underlying %>% 
+  group_by(icd10) %>% 
+  summarize(n = n()) %>% 
+  arrange(desc(n)) %>% 
+  mutate(prop = round(n / dim(falls_underlying)[1], digits = 3))
+
+fall65_summary
+```
+
+When comparing falls as an underlying cause between 65+ and the regular age group, adults 65+ are 1.168 times more likely to have falls listed as an underlying cause.
+
+## Hierarchical Structure
+
+```{r, message = FALSE}
+library(icd.data)
+# Hierarchical structure
+icd10_df = icd10cm2016 %>% 
+  rename(icd10code = code) %>% 
+  data.frame() %>% 
+  mutate(icd10code = as.character(icd10code))
+
+icd10_df = read_csv("icd10_hierarchy.csv")
+```
+
+```{r}
+# Exploration of falls hierarchy
+temp2 = full_join(temp1, icd10_df, by = "icd10code") %>% 
+  filter(!is.na(obs)) %>% select(icd10code, obs, short_desc, 
+                                 three_digit, major, sub_chapter, chapter)
+
+library(data.tree)
+temp2$chapter = as.character(temp2$chapter)
+temp2$pathString = paste("Chapter", temp2$sub_chapter, 
+                         temp2$major, temp2$icd10code, sep = "/")
+tree = as.Node(temp2[,])
+print(tree, "obs")
+```
+
+
+
+## Record axis EDA
+
+```{r}
+# For ages 65+
+tidy65_fall = falls65_underlying %>% 
+  select(icd10, ra2:ra20) %>% 
+  gather(key = ra_position, value = ra_value, ra2:ra20)
+
+# Count ra values for overall 65+ age group
+temp = mort65plus %>%
+  select(icd10, ra2:ra20) %>% 
+  gather(key = ra_position, value = ra_value, ra2:ra20) %>% 
+  na.omit() %>% 
+  group_by(ra_value) %>% 
+  summarize(n = n()) %>% 
+  rename(icd10code = ra_value)
+
+# Count ra values for 65+ with falls as underlying death
+temp1 = tidy65_fall %>% na.omit() %>% 
+  group_by(ra_value) %>% 
+  summarize(n = n()) %>% 
+  rename(obs = n, icd10code = ra_value)
+```
+
+
+```{r}
+# Calculate PMR from observed and expected values
+# Filter out any observations less than 10
+ra_falls = full_join(temp, temp1, by = "icd10code") %>% 
+  mutate(prev = n / dim(mort65plus)[1],
+         prev_fall = obs / dim(falls65_underlying)[1],
+         expect = round(prev * dim(falls65_underlying)[1], digits = 2),
+         pmr = round(obs / expect, digits = 2),
+         se_pmr = round(sqrt(obs)/expect, digits = 2),
+         l95_pmr = round(pmr - 1.96 * se_pmr, digits = 2),
+         u95_pmr = round(pmr + 1.96 * se_pmr, digits = 2),
+         # Calculate RR and PAR
+         pi01 = (dim(falls65_underlying)[1] - obs) / dim(falls65_underlying)[1],
+         pi1 = dim(falls65_underlying)[1] / dim(mort65plus)[1],
+         pi0 = (dim(mort65plus)[1] - dim(falls65_underlying)[1]) / dim(mort65plus)[1],
+         N = dim(mort65plus)[1],
+         rr = (obs/n) / 
+           ((dim(falls65_underlying)[1] - obs) / (dim(mort65plus)[1] - n)),
+         par = ((prev_fall * (rr - 1)) / (prev_fall * (pmr - 1) + 1))) %>% 
+  mutate(theta = 1 - par,
+         var_log_theta = (1 - pi01)/(N * pi01) - 
+           (pi0 + pi1 - 2 * pi01)/(N * pi0 * pi1),
+         var_theta = theta^2 * var_log_theta,
+         l95_par = round(100 * (par - 1.96 * sqrt(var_theta)), digits = 2),
+         u95_par = round(100 * (par + 1.96 * sqrt(var_theta)), digits = 2),
+         par = round(100 * par, digits = 2)) %>% 
+  arrange(desc(par)) %>% 
+  filter(!str_detect(icd10code, "^S")) %>%
+  filter(obs > 10, !str_detect(icd10code, "^T"))
+
+ra_falls = full_join(ra_falls, icd10_df) %>% 
+  filter(!is.na(pmr), pmr > 1.5) %>% 
+  select(icd10code, obs, expect, pmr, l95_pmr, u95_pmr, 
+         par, l95_par, u95_par, short_desc)
+
+ra_falls
+```
+
+### Observed-Expected frequency ratio (log ratio)
+
+```{r}
+freq_ratio = full_join(temp, temp1, by = "ra_value") %>% 
+  na.omit() %>% 
+  filter(obs > 10) %>% 
+  mutate(ratio = (obs * 2070846 / (n * 31244))) %>% 
+  mutate(ln_ratio = log(ratio)) %>% 
+  select(ra_value, n, obs, ln_ratio) %>% 
+  arrange(desc(ln_ratio)) %>% 
+  filter(!str_detect(ra_value, "^S")) %>% 
+  filter(!str_detect(ra_value, "^T"))
+
+freq_ratio
+```
+
+## Age and sex adjusted 
+
+```{r}
+# New age group
+mort65plus = mort65plus %>% 
+  filter(age_value < 120) %>% 
+  mutate(age_grp = cut(age_value, 
+                       c(65, 70, 75, 80, 85, 90, 120), 
+                       right = FALSE))
+
+age_sex = mort65plus %>% 
+  select(age_grp, sex, icd10, ra2:ra20)
+
+# Nest data by age_grp and sex
+age_sex_nest = nest(age_sex, icd10:ra20)
+
+# Create functions from previous code to apply across each dataset
+# Function that filters for falls dataset
+falls_death = function(data){
+  data %>% 
+  filter(grepl("W", icd10)) %>%
+  mutate(number = str_sub(icd10, 2, 3)) %>% 
+  filter(number <= 19) %>% select(-number)
+}
+
+# Function to turn falls dataframe into a "tidy" version
+tidy = function(data){
+  data %>% 
+  gather(key = ra_position, value = icd10code, ra2:ra20)
+}
+
+# Function to count icd10 values for overall group
+count_grp = function(data){
+  data %>% 
+  gather(key = ra_position, value = icd10code, ra2:ra20) %>% 
+  na.omit() %>% 
+  group_by(icd10code) %>% 
+  summarize(n = n())
+}
+  
+# Function to count icd10 values for those with falls
+count_fall = function(data){
+  data %>% na.omit() %>% 
+  group_by(icd10code) %>% 
+  summarize(obs = n())
+}
+
+# Function to calculate PMR and PAR from observed and expected values
+# Filter out any observations less than 10
+pmr = function(count1, count2, data, fall){
+  full_join(count1, count2, by = "icd10code") %>% 
+  mutate(prev = n / dim(data)[1],
+         prev_fall = obs / dim(fall)[1],
+         expect = round(prev * dim(fall)[1], digits = 2),
+         pmr = round(obs / expect, digits = 2),
+         par = ((prev_fall * (pmr - 1)) / (prev_fall * (pmr - 1) + 1))) %>%
+  mutate(par = round(100 * par, digits = 2)) %>% 
+  arrange(desc(par)) %>% 
+  filter(!str_detect(icd10code, "^S")) %>%
+  filter(obs > 10, !str_detect(icd10code, "^T"))
+}
+
+# Function to tidy up the summary
+clean_summary = function(data){
+  full_join(data, icd10_df, by = "icd10code") %>% 
+  filter(!is.na(pmr), pmr > 1.5) %>% 
+  select(icd10code, obs, expect, pmr, par, short_desc)
+}
+
+# Apply all functions to the nested dataframes
+# Create tables that summarize PMR for each age-sex group
+age_sex_nest = age_sex_nest %>% 
+  mutate(falls = map(.x = data, ~falls_death(.x))) %>% 
+  mutate(tidy = map(.x = falls, ~tidy(.x))) %>% 
+  mutate(count = map(.x = data, ~count_grp(.x)),
+         count_fall = map(.x = tidy, ~count_fall(.x))) %>% 
+  mutate(summary = pmap(list(count, count_fall, data, falls), pmr)) %>% 
+  mutate(summary = map(.x = summary, ~clean_summary(.x)))
+
+age_sex_nest
+
+```
+
+
