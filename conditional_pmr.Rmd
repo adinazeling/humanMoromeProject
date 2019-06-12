@@ -14,7 +14,7 @@ library(tidyverse)
 
 ```{r}
 # Load datasets
-mort65plus = read_csv("./mort17_65plus.csv")
+mort65plus = read_csv("./mort17_65plus.csv") %>% mutate(id = row_number())
 icd10_df = read_csv("icd10_hierarchy.csv")
 
 set.seed(1)
@@ -123,20 +123,18 @@ full_combo = function(data){
 
 ```{r}
 # Prepare datasets for use in functions
-population = mort65plus %>% 
-  select(X1, icd10, ra2:ra20) %>% 
-  rename(id = X1)
-
 # Tidy population data
-tidy_pop = population %>% 
+tidy_pop = mort65plus %>%
+  select(id, icd10, ra2:ra20) %>% 
   gather(key = ra_position, value = ra_value, ra2:ra20) %>% 
   na.omit()
 
 # Filter out number of individuals with underlying causes of death == W00-W19 (falls)
-falls = population %>% 
+falls = mort65plus %>% 
   filter(grepl("W", icd10)) %>%
   mutate(number = str_sub(icd10, 2, 3)) %>% 
-  filter(number <= 19) %>% select(-number) 
+  filter(number <= 19) %>% 
+  select(id, icd10, ra2:ra20) 
 
 # Tidy fall data
 # Filter out icd10 codes were are not interested in
