@@ -96,6 +96,7 @@ fall_combo = function(data){
   data %>%
   select(-icd10, -ra_position) %>% 
   mutate(n = 1) %>%
+  distinct(id, ra_value, n) %>% 
   spread(ra_value, n, fill = 0) %>% 
   select(-id) %>% 
   {crossprod(as.matrix(.))} %>% 
@@ -118,5 +119,37 @@ full_combo = function(data){
   reshape2::melt(na.rm = T) %>% 
   arrange(desc(value))
 }
+```
+
+```{r}
+# Prepare datasets for use in functions
+population = mort65plus %>% 
+  select(X1, icd10, ra2:ra20) %>% 
+  rename(id = X1)
+
+# Tidy population data
+tidy_pop = population %>% 
+  gather(key = ra_position, value = ra_value, ra2:ra20) %>% 
+  na.omit()
+
+# Filter out number of individuals with underlying causes of death == W00-W19 (falls)
+falls = population %>% 
+  filter(grepl("W", icd10)) %>%
+  mutate(number = str_sub(icd10, 2, 3)) %>% 
+  filter(number <= 19) %>% select(-number) 
+
+# Tidy fall data
+# Filter out icd10 codes were are not interested in
+tidy_falls = falls %>%
+  gather(key = ra_position, value = ra_value, ra2:ra20) %>% 
+  filter(!str_detect(ra_value, "^S"),
+         !str_detect(ra_value, "^T0"),
+         !str_detect(ra_value, "^T1")) %>% 
+  na.omit()
+```
+
+```{r}
+fall_test = full_combo(tidy_falls)
+pop_test = full_combo(tidy_pop)
 ```
 
