@@ -10,6 +10,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
+## Try conditional PMR on sample dataset of 5000 observations
+
 ```{r}
 # Load datasets
 mort65plus = read_csv("./mort17_65plus.csv")
@@ -23,11 +25,15 @@ sample_df = mort65plus %>%
   select(X1, icd10, ra2:ra20) %>% 
   rename(id = X1)
 
-# Filter out underlying causes of death == W00-W19 (falls)
+# Filter out number of individuals with underlying causes of death == W00-W19 (falls)
 sample_fall = sample_df %>% 
   filter(grepl("W", icd10)) %>%
   mutate(number = str_sub(icd10, 2, 3)) %>% 
-  filter(number <= 19) %>% select(-number) %>%
+  filter(number <= 19) %>% select(-number) 
+
+# Tidy fall data
+# Filter out icd10 codes were are not interested in
+tidy_fall = sample_fall %>%
   gather(key = ra_position, value = ra_value, ra2:ra20) %>% 
   filter(!str_detect(ra_value, "^S"),
          !str_detect(ra_value, "^T0"),
@@ -39,21 +45,15 @@ sample_fall = sample_df %>%
 ```{r}
 # Count observed number of pairs among falls
 # Count icd10 occurrence among falls
-fall1 = sample_fall %>%
+fall_comb = tidy_fall %>%
   select(-icd10, -ra_position) %>% 
   mutate(n = 1) %>%
-  spread(ra_value, n, fill = 0) 
-
-# Transpose matrix and count pairs
-fall_comb = sample_fall %>% 
-  pull(ra_value) %>% 
-  unique() %>% 
-  combn(2) %>% 
-  t() %>% 
-  as.data.frame() %>% 
-  mutate(obs = map2_int(V1, V2, 
-                         ~sum(apply(fall1 %>% select(.x, .y), 1, sum) == 2))) %>% 
-  arrange(desc(obs))
+  spread(ra_value, n, fill = 0) %>% 
+  select(-id) %>% 
+  {crossprod(as.matrix(.))} %>% 
+  replace(lower.tri(., diag = T), NA) %>% 
+  reshape2::melt(na.rm = T) %>% 
+  arrange(desc(value))
 ```
 
 ```{r}
@@ -62,24 +62,61 @@ sample_tidy = sample_df %>%
   gather(key = ra_position, value = ra_value, ra2:ra20) %>% 
   na.omit()
 
-sample1 = sample_tidy %>% 
+sample_comb = sample_tidy %>% 
   select(-icd10, -ra_position) %>% 
   mutate(n = 1) %>% 
   # Filter out any duplicate data for the same person (one person had K729 
   # entered twice)
   distinct(id, ra_value, n) %>% 
-  spread(ra_value, n, fill = 0)
-
-sample_comb = sample_tidy %>% 
-  pull(ra_value) %>% 
-  unique() %>% 
-  combn(2) %>% 
-  t() %>% 
-  as.data.frame() %>% 
-  mutate(n = map2_int(V1, V2, 
-                         ~sum(apply(sample1 %>% select(.x, .y), 1, sum) == 2))) 
-
-full_join(fall_comb, sample_comb, by = c("V1", "V2"))
+  spread(ra_value, n, fill = 0) %>% 
+  select(-id) %>% 
+  {crossprod(as.matrix(.))} %>% 
+  replace(lower.tri(., diag = T), NA) %>% 
+  reshape2::melt(na.rm = T) %>% 
+  arrange(desc(value))
   
+```
+
+```{r}
+# Join fall with overall sample counts
+# Calculate expected value and PMR
+full_join(fall2, sample_comb, by = c("Var1", "Var2")) %>% 
+  rename(obs = value.x,
+         n = value.y) %>% 
+  mutate(prev = n / dim(sample_df)[1],
+         exp = prev * dim(sample_fall)[1],
+         pmr = obs / exp)
+```
+
+## Try conditional pmr on full dataset
+
+```{r}
+# Write functions out of previous code
+fall_combo = function(data){
+  data %>%
+  select(-icd10, -ra_position) %>% 
+  mutate(n = 1) %>%
+  spread(ra_value, n, fill = 0) %>% 
+  select(-id) %>% 
+  {crossprod(as.matrix(.))} %>% 
+  replace(lower.tri(., diag = T), NA) %>% 
+  reshape2::melt(na.rm = T) %>% 
+  arrange(desc(value))
+}
+
+full_combo = function(data){
+  data %>% 
+  select(-icd10, -ra_position) %>% 
+  mutate(n = 1) %>% 
+  # Filter out any duplicate data for the same person (one person had K729 
+  # entered twice)
+  distinct(id, ra_value, n) %>% 
+  spread(ra_value, n, fill = 0) %>% 
+  select(-id) %>% 
+  {crossprod(as.matrix(.))} %>% 
+  replace(lower.tri(., diag = T), NA) %>% 
+  reshape2::melt(na.rm = T) %>% 
+  arrange(desc(value))
+}
 ```
 
