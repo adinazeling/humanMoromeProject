@@ -14,7 +14,7 @@ library(tidyverse)
 
 ```{r}
 # Load datasets
-mort65plus = read_csv("./mort17_65plus.csv") %>% mutate(id = row_number())
+mort65plus = read_csv("./mort17_65plus.csv")
 icd10_df = read_csv("icd10_hierarchy.csv")
 
 set.seed(1)
@@ -92,20 +92,7 @@ full_join(fall2, sample_comb, by = c("Var1", "Var2")) %>%
 
 ```{r}
 # Write functions out of previous code
-fall_combo = function(data){
-  data %>%
-  select(-icd10, -ra_position) %>% 
-  mutate(n = 1) %>%
-  distinct(id, ra_value, n) %>% 
-  spread(ra_value, n, fill = 0) %>% 
-  select(-id) %>% 
-  {crossprod(as.matrix(.))} %>% 
-  replace(lower.tri(., diag = T), NA) %>% 
-  reshape2::melt(na.rm = T) %>% 
-  arrange(desc(value))
-}
-
-full_combo = function(data){
+countpairs = function(data){
   data %>% 
   select(-icd10, -ra_position) %>% 
   mutate(n = 1) %>% 
@@ -125,7 +112,8 @@ full_combo = function(data){
 # Prepare datasets for use in functions
 # Tidy population data
 tidy_pop = mort65plus %>%
-  select(id, icd10, ra2:ra20) %>% 
+  select(X1, icd10, ra2:ra20) %>% 
+  rename(id = X1) %>% 
   gather(key = ra_position, value = ra_value, ra2:ra20) %>% 
   na.omit()
 
@@ -134,7 +122,8 @@ falls = mort65plus %>%
   filter(grepl("W", icd10)) %>%
   mutate(number = str_sub(icd10, 2, 3)) %>% 
   filter(number <= 19) %>% 
-  select(id, icd10, ra2:ra20) 
+  rename(id = X1) %>% 
+  select(id, icd10, ra2:ra20)
 
 # Tidy fall data
 # Filter out icd10 codes were are not interested in
@@ -144,10 +133,12 @@ tidy_falls = falls %>%
          !str_detect(ra_value, "^T0"),
          !str_detect(ra_value, "^T1")) %>% 
   na.omit()
+
+test = tidy_pop %>% filter(ra_value %in% tidy_falls$ra_value)
 ```
 
 ```{r}
-fall_test = full_combo(tidy_falls)
-pop_test = full_combo(tidy_pop)
+fall_test = countpairs(tidy_falls)
+pop_test = countpairs(test)
 ```
 

@@ -14,8 +14,7 @@ library(kableExtra)
 ```{r, cache = TRUE, include = FALSE}
 # Load datasets
 mort65plus = read_csv("../mort17_65plus.csv")
-icd10_df = read_csv("../icd10_hierarchy.csv")
-icd10_3digit = icd10_df %>% select(icd10code, three_digit, major)
+icd10_data = read_csv("../icd10_hierarchy.csv")
 ```
 
 ```{r, include = FALSE}
@@ -29,42 +28,69 @@ mort65plus = mort65plus %>%
 
 age_sex = mort65plus %>% 
   select(age_grp, sex, icd10, ra2:ra20)
+```
 
+```{r, include = FALSE}
 # Create functions from previous code to apply across each dataset
 # Function that filters for falls dataset
 falls_death = function(data){
   data %>% 
-  filter(grepl("W", icd10)) %>%
-  mutate(number = str_sub(icd10, 2, 3)) %>% 
-  filter(number <= 19) %>% select(-number)
+    filter(grepl("W", icd10)) %>%
+    mutate(number = str_sub(icd10, 2, 3)) %>% 
+    filter(number <= 19) %>% # Not all W's are fall-related, just W00-W19
+    select(-number)
+}
+
+# Function to specify which icd10code we are using
+# Yields an icd10 code dataset
+icd10_select = function(...){
+  if (... == "icd10code"){
+    icd10_data %>% 
+      select(icd10code, short_desc)
+  }
+  else if (... == "three digit"){
+    icd10_data %>% 
+      select(icd10code, three_digit, major)
+  }
+  else {
+    icd10_data %>% 
+      select(icd10code, sub_chapter_group, sub_chapter)
+  }
 }
 
 # Function to turn falls dataframe into a "tidy" version
+# Join tidy version with icd10 dataset by icd10code (for aggregating)
 tidy = function(data, icd10_df){
   data = data %>% 
     gather(key = ra_position, value = icd10code, ra2:ra20)
+  full_join(data, icd10_df, by = "icd10code")
 }
 
 # Function to count icd10 values for overall group
-count_grp = function(data){
-  data %>% 
+count_grp = function(data, ...){
+  data = data %>% 
     gather(key = ra_position, value = icd10code, ra2:ra20) %>% 
-    na.omit() %>% 
-    group_by(icd10code) %>% 
+    na.omit()
+  data1 = full_join(data, icd10_df, by = "icd10code") %>% 
+    group_by(...) %>% 
     summarize(n = n())
+  names(data1)[1] = "icd10"
+  return(data1)
 }
   
 # Function to count icd10 values for those with falls
-count_fall = function(data){
-  data %>% 
+count_fall = function(data, ...){
+  data = data %>% 
     na.omit() %>% 
-    group_by(icd10code) %>%
+    group_by(...) %>%
     summarize(obs = n())
+  names(data)[1] = "icd10"
+  return(data)
 }
 
 # Function to count observed and expected values
 pmr_count = function(count1, count2, data, fall){
-  full_join(count1, count2, by = "icd10code") %>% 
+  full_join(count1, count2, by = "icd10") %>% 
     mutate(prev = n / dim(data)[1],
          prev_fall = obs / dim(fall)[1],
          expect = round(prev * dim(fall)[1], digits = 2)) %>% 
@@ -76,40 +102,48 @@ adjust = function(data){
   summary = data %>% unnest(summary)
   count = data %>% 
     unnest(count) %>% 
-    group_by(icd10code) %>% 
+    group_by(icd10) %>% 
     summarize(n = sum(n))
   
   # Calculate PMR ------------------------------------------------------ 
   temp = summary %>% 
-    group_by(icd10code, nfall, ntotal) %>% 
+    group_by(icd10, nfall, ntotal) %>% 
     summarize(obs = sum(obs),
               exp = sum(expect)) %>% 
     mutate(pmr = round(obs/exp, digits = 2),
            se_pmr = round(sqrt(obs)/exp, digits = 2),
            l95_pmr = round(pmr - 1.96 * se_pmr, digits = 2),
            u95_pmr = round(pmr + 1.96 * se_pmr, digits = 2)) %>% 
-    filter(!str_detect(icd10code, "^S"),
-           !str_detect(icd10code, "^T0"),
-           !str_detect(icd10code, "^T1"),
-           exp > 1, pmr > 1.5)
+    filter(!str_detect(icd10, "^S"),
+           !str_detect(icd10, "^T0"),
+           !str_detect(icd10, "^T1"),
+           exp > 1)
 
-  full_join(count, temp, by = "icd10code") %>% 
+  full_join(count, temp, by = "icd10") %>% 
     na.omit() %>% 
     mutate(prev = n/ntotal,
            par = round(100 * ((prev * (pmr - 1)) / 
                               (prev * (pmr - 1) + 1)), digits = 2)) %>%
-    arrange(desc(par)) %>%
-    filter(par >= 0.1)
+    arrange(desc(par))
 }
 
 # Function to tidy up the summary
-clean_summary = function(data){
-  full_join(data, icd10_df, by = "icd10code") %>%
+clean_summary = function(data, icd10_data){
+  if (dim(icd10_data)[2] > 2) {
+    names(icd10_data)[2] = "icd10"
+    icd10_data = icd10_data %>% 
+      select(-icd10code) %>% 
+      distinct()
+  } else {
+    names(icd10_data)[1] = "icd10"
+  }
+  data = data %>% 
+    select(icd10, obs, exp, pmr, l95_pmr, u95_pmr, par)
+  full_join(data, icd10_data, by = "icd10") %>%
     filter(!is.na(pmr)) %>% 
-    select(icd10code, obs, exp, pmr, l95_pmr, u95_pmr, par, short_desc) %>% 
     unite(PMR_95CI, l95_pmr, u95_pmr, sep = ", ") %>%
     mutate(PMR_95CI = paste0("(", PMR_95CI, ")")) %>% 
-    rename(ICD10 = icd10code,
+    rename(ICD10 = icd10,
            Obs = obs,
            Exp = exp,
            PMR = pmr,
@@ -118,6 +152,9 @@ clean_summary = function(data){
 ```
 
 ```{r, include = FALSE}
+# Select icd10 code to aggregate by
+icd10_df = icd10_select("three digit")
+
 # Nest data by age_grp and sex
 age_sex_nest = nest(age_sex, icd10:ra20)
 
@@ -125,11 +162,10 @@ age_sex_nest = nest(age_sex, icd10:ra20)
 # Create tables that summarize PMR for each age-sex group
 age_sex_nest = age_sex_nest %>% 
   mutate(falls = map(.x = data, ~falls_death(.x))) %>% 
-  mutate(tidy = map(.x = falls, ~tidy(.x))) %>% 
-  mutate(count = map(.x = data, ~count_grp(.x)),
-         count_fall = map(.x = tidy, ~count_fall(.x)),
-         icd10code = "icd10code") %>% 
-  mutate(summary = pmap(list(count, count_fall, data, falls), pmr_count))
+  mutate(tidy = map(.x = falls, ~tidy(.x, icd10_df))) %>% 
+  mutate(count = map(.x = data, ~count_grp(.x, three_digit)),
+         count_fall = map(.x = tidy, ~count_fall(.x, three_digit))) %>% 
+  mutate(summary = pmap(list(count, count_fall, data, falls ), pmr_count))
 ```
 
 ```{r, include = FALSE}
@@ -145,7 +181,10 @@ female = age_sex_nest %>%
 ### Adjusted for Females (ntotal = `r female$ntotal[1]`, nfalls = `r female$nfall[1]`)
 
 ```{r, echo = FALSE}
-female = female %>% select(-icd10code) %>% adjust() %>% clean_summary()
+female = female %>%  
+  adjust() %>% 
+  clean_summary(.,icd10_df) %>% 
+  filter(PAR >= 0.1, PMR > 1.5) 
 
 female %>% knitr::kable(booktabs = T) %>% 
     kable_styling(latex_options = c("striped", "scale_down"))
