@@ -97,17 +97,21 @@ pmr_count = function(count1, count2, data, fall){
     na.omit()
 }
 
-adjust = function(data){
+aggregate = function(data){
   # Unnest nested data and aggregate across obs and expected values
   summary = data %>% unnest(summary)
   count = data %>% 
     unnest(count) %>% 
     group_by(icd10) %>% 
     summarize(n = sum(n))
-  
+  my_list = list(summary, count)
+  return(my_list)
+}
+
+par = function(summary, count, nfall, ntotal){
   # Calculate PMR ------------------------------------------------------ 
   temp = summary %>% 
-    group_by(icd10, nfall, ntotal) %>% 
+    group_by(icd10, nfall , ntotal) %>% 
     summarize(obs = sum(obs),
               exp = sum(expect)) %>% 
     mutate(pmr = round(obs/exp, digits = 2),
@@ -118,7 +122,7 @@ adjust = function(data){
            !str_detect(icd10, "^T0"),
            !str_detect(icd10, "^T1"),
            exp > 1)
-
+  # Calculate PAR ------------------------------------------------------
   full_join(count, temp, by = "icd10") %>% 
     na.omit() %>% 
     mutate(prev = n/ntotal,
@@ -165,7 +169,7 @@ age_sex_nest = age_sex_nest %>%
   mutate(tidy = map(.x = falls, ~tidy(.x, icd10_df))) %>% 
   mutate(count = map(.x = data, ~count_grp(.x, three_digit)),
          count_fall = map(.x = tidy, ~count_fall(.x, three_digit))) %>% 
-  mutate(summary = pmap(list(count, count_fall, data, falls ), pmr_count))
+  mutate(summary = pmap(list(count, count_fall, data, falls ), pmr_count)) 
 ```
 
 ```{r, include = FALSE}
@@ -181,8 +185,8 @@ female = age_sex_nest %>%
 ### Adjusted for Females (ntotal = `r female$ntotal[1]`, nfalls = `r female$nfall[1]`)
 
 ```{r, echo = FALSE}
-female = female %>%  
-  adjust() %>% 
+fem_agg = female %>% aggregate()
+female =  par(fem_agg[[1]], fem_agg[[2]]) %>% 
   clean_summary(.,icd10_df) %>% 
   filter(PAR >= 0.1, PMR > 1.5) 
 
@@ -205,7 +209,10 @@ male = age_sex_nest %>%
 ### Adjusted for Males (ntotal = `r male$ntotal[1]`, nfalls = `r male$nfall[1]`)
 
 ```{r, echo = FALSE}
-male = male %>% select(-icd10code) %>% adjust() %>% clean_summary()
+male_agg = male %>% aggregate()
+male =  par(male_agg[[1]], male_agg[[2]]) %>% 
+  clean_summary(.,icd10_df) %>% 
+  filter(PAR >= 0.1, PMR > 1.5)
 
 male %>% knitr::kable(booktabs = T) %>% 
     kable_styling(latex_options = c("striped", "scale_down"))
@@ -224,7 +231,10 @@ age_sex_adjusted = age_sex_nest %>%
          nfall = Reduce("+", nfall))
 
 # Adjust for age and sex
-age_sex_adjusted = age_sex_adjusted %>% select(-icd10code) %>% adjust() %>% clean_summary()
+adj_agg = age_sex_adjusted %>% aggregate()
+age_sex_adjusted = par(adj_agg[[1]], adj_agg[[2]]) %>% 
+  clean_summary(., icd10_df) %>% 
+  filter(PAR >= 0.1, PMR > 1.5)
 ```
 
 ```{r, echo = FALSE}
@@ -290,174 +300,82 @@ test %>% ggplot(aes(PMR, reorder(ICD10, PMR))) +
   theme_minimal()
 ```
 
+\newpage
 
-
-\newpage 
+### PAR differences over age groups
 
 ```{r, include = FALSE}
-# Adjust for 65-69 years
+# Select top ICD10 in age 65-69 age group
 y65 = age_sex_nest %>% 
   filter(age_grp == "[65,70)") %>% 
   mutate(ntotal = map(.x = data, ~dim(.x)[1]),
          nfall = map(.x = falls, ~dim(.x)[1])) %>% 
   mutate(ntotal = Reduce("+", ntotal),
          nfall = Reduce("+", nfall))
-```
 
-### Adjusted for Ages 65-69 Years (ntotal = `r y65$ntotal[1]`, nfalls = `r y65$nfall[1]`)
+y65_agg = y65 %>% aggregate()
+y65 =  par(y65_agg[[1]], y65_agg[[2]]) %>% 
+  clean_summary(.,icd10_df) %>% 
+  filter(PAR >= 0.1, PMR > 1.5) 
 
-```{r, echo = FALSE}
-y65 = y65 %>% select(-icd10code) %>% adjust() %>% clean_summary()
+top10_y65 = top_n(y65, 10, PAR)
 
-y65 %>% knitr::kable(booktabs = T) %>% 
-    kable_styling(latex_options = c("striped", "scale_down"))
-```
-
-\newpage
-
-```{r, include = FALSE}
-# Adjust for 70-74 years
-y70 = age_sex_nest %>% 
-  filter(age_grp == "[70,75)") %>% 
-  mutate(ntotal = map(.x = data, ~dim(.x)[1]),
-         nfall = map(.x = falls, ~dim(.x)[1])) %>% 
-  mutate(ntotal = Reduce("+", ntotal),
-         nfall = Reduce("+", nfall))
-```
-
-### Adjusted for Ages 70-74 Years (ntotal = `r y70$ntotal[1]`, nfalls = `r y70$nfall[1]`)
-
-```{r, echo = FALSE}
-y70 = y70 %>% select(-icd10code) %>% adjust() %>% clean_summary()
-
-y70 %>% knitr::kable(booktabs = T) %>% 
-    kable_styling(latex_options = c("striped", "scale_down"))
-```
-
-\newpage
-
-```{r, include = FALSE}
-# Adjust for 75-79 years
-y75 = age_sex_nest %>% 
-  filter(age_grp == "[75,80)") %>% 
-  mutate(ntotal = map(.x = data, ~dim(.x)[1]),
-         nfall = map(.x = falls, ~dim(.x)[1])) %>% 
-  mutate(ntotal = Reduce("+", ntotal),
-         nfall = Reduce("+", nfall))
-```
-
-### Adjusted for Ages 75-79 Years (ntotal = `r y75$ntotal[1]`, nfalls = `r y75$nfall[1]`)
-
-```{r, echo = FALSE}
-y75 = y75 %>% select(-icd10code) %>% adjust() %>% clean_summary()
-
-y75 %>% knitr::kable(booktabs = T) %>% 
-    kable_styling(latex_options = c("striped", "scale_down"))
-```
-
-\newpage
-
-```{r, include = FALSE}
-# Adjust for 80-84 years
-y80 = age_sex_nest %>% 
-  filter(age_grp == "[80,85)") %>% 
-  mutate(ntotal = map(.x = data, ~dim(.x)[1]),
-         nfall = map(.x = falls, ~dim(.x)[1])) %>% 
-  mutate(ntotal = Reduce("+", ntotal),
-         nfall = Reduce("+", nfall))
-```
-
-### Adjusted for Ages 80-84 Years (ntotal = `r y80$ntotal[1]`, nfalls = `r y80$nfall[1]`)
-
-```{r, echo = FALSE}
-y80 = y80 %>% select(-icd10code) %>% adjust() %>% clean_summary()
-
-y80 %>% knitr::kable(booktabs = T) %>% 
-    kable_styling(latex_options = c("striped", "scale_down"))
-```
-
-\newpage
-
-```{r, include = FALSE}
-# Adjust for 85-89 years
-y85 = age_sex_nest %>% 
-  filter(age_grp == "[85,90)") %>% 
-  mutate(ntotal = map(.x = data, ~dim(.x)[1]),
-         nfall = map(.x = falls, ~dim(.x)[1])) %>% 
-  mutate(ntotal = Reduce("+", ntotal),
-         nfall = Reduce("+", nfall))
-```
-
-### Adjusted for Ages 85-89 Years (ntotal = `r y85$ntotal[1]`, nfalls = `r y85$nfall[1]`)
-
-```{r, echo = FALSE}
-y85 = y85 %>% select(-icd10code) %>% adjust() %>% clean_summary()
-
-y85 %>% knitr::kable(booktabs = T) %>% 
-    kable_styling(latex_options = c("striped", "scale_down"))
-```
-
-\newpage
-
-```{r, include = FALSE}
-# Adjust for 90+ years
+# Select top ICD10 in age 90+ age group
 y90 = age_sex_nest %>% 
   filter(age_grp == "[90,120)") %>% 
   mutate(ntotal = map(.x = data, ~dim(.x)[1]),
          nfall = map(.x = falls, ~dim(.x)[1])) %>% 
   mutate(ntotal = Reduce("+", ntotal),
          nfall = Reduce("+", nfall))
-```
 
-### Adjusted for Ages 90+ Years (ntotal = `r y90$ntotal[1]`, nfalls = `r y90$nfall[1]`)
+y90_agg = y90 %>% aggregate()
+y90 =  par(y90_agg[[1]], y90_agg[[2]]) %>% 
+  clean_summary(.,icd10_df) %>% 
+  filter(PAR >= 0.1, PMR > 1.5) 
 
-```{r, echo = FALSE}
-y90 = y90 %>% select(-icd10code) %>% adjust() %>% clean_summary()
+top10_y90 = top_n(y90, 10, PAR)
 
-y90 %>% knitr::kable(booktabs = T) %>% 
-    kable_styling(latex_options = c("striped", "scale_down"))
-```
-
-### PAR differences over age groups
-
-```{r, echo = FALSE}
-# Select top ICD10 by PAR
-top10_1 = top_n(y65, 10, PAR)
-top10_2 = top_n(y90, 10, PAR)
-top10 = rbind(top10_1, top10_2) %>% 
+# Join top 10 from both age groups into one reference dataframes
+top10 = rbind(top10_y65, top10_y90) %>% 
   distinct(ICD10)
+```
 
-#
-y65_1 = y65 %>% 
-  mutate(age_grp = "65-69") %>% 
-  filter(ICD10 %in% top10$ICD10)
+```{r, echo = FALSE, message = FALSE, error = FALSE}
+# Prepare dataset for plotting
+age_plot = age_sex_nest %>% 
+  mutate(ntotal = map(.x = data, ~dim(.x)[1]),
+         nfall = map(.x = falls, ~dim(.x)[1])) %>% 
+  mutate(summary = map2(summary, ntotal, ~mutate(.x, ntotal = .y)),
+         summary = map2(summary, nfall, ~mutate(.x, nfall = .y))) %>% 
+  mutate(summary = pmap(list(summary, count, nfall, ntotal), par)) %>% 
+  unnest(summary) 
 
-y70_1 = y70 %>% 
-  mutate(age_grp = "70-74") %>% 
-  filter(ICD10 %in% top10$ICD10)
+# Select rows which only have an icd10 code that is in the top 15 codes previously identified
+plot2 = tibble()
+for (i in 1:dim(age_plot)) {
+  for (j in 1:dim(top10)){
+    if (age_plot$icd10[i] == top10$ICD10[j]) {
+      plot2 = rbind(plot2, age_plot[i,])
+      }
+  }
+}
 
-y75_1 = y75 %>% 
-  mutate(age_grp = "75-79") %>% 
-  filter(ICD10 %in% top10$ICD10)
-
-y80_1 = y80 %>% 
-  mutate(age_grp = "80-84") %>% 
-  filter(ICD10 %in% top10$ICD10)
-
-y85_1 = y85 %>% 
-  mutate(age_grp = "85-89") %>% 
-  filter(ICD10 %in% top10$ICD10)
-
-y90_1 = y90 %>% 
-  mutate(age_grp = "90+") %>% 
-  filter(ICD10 %in% top10$ICD10)
-
-plot2 = rbind(y65_1, y70_1, y75_1, y80_1, y85_1, y90_1)
-
-plot2 %>% ggplot(aes(x = age_grp, y = PAR)) +
-  geom_line(aes(group = ICD10, color = ICD10)) + 
-  labs(title = "Changes in PAR over age groups",
-       x = "Age Group")  +
+plot2 %>% 
+  mutate(label = ifelse(age_grp == "[90,120)", icd10, NA_character_),
+         age_grp = fct_recode(age_grp,
+                              "65-69" = "[65,70)",
+                              "70-74" = "[70,75)",
+                              "75-79" = "[75,80)",
+                              "80-84" = "[80,85)",
+                              "85-89" = "[85,90)",
+                              "90+" = "[90,120)")) %>% 
+  ggplot(aes(x = age_grp, y = par)) +
+  geom_line(aes(group = icd10, color = icd10)) + 
+  facet_grid(.~sex) + 
+  labs(title = "Change in Population Attributed Ratio (PAR) over age groups by sex",
+       x = "Age Group (Years)",
+       y = "Population Attributed Ratio (PAR)") +
+  geom_text(aes(label = label, color = icd10)) + 
   theme_minimal()
 
 ```
