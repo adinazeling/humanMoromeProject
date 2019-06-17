@@ -1,0 +1,42 @@
+ICD10,Obs,Exp,PMR,PMR_95CI,PAR,major
+I25,3257,1533.6399999999999,2.12,"(2.04, 2.2)",10.43,Chronic ischemic heart disease
+I11,1727,212.29,8.14,"(7.75, 8.53)",10.12,Hypertensive heart disease
+F03,1699,657.46,2.58,"(2.46, 2.7)",5.79,Unspecified dementia
+E14,1326,666.16,1.99,"(1.89, 2.09)",4.57,Unspecified diabetes mellitus
+F10,312,69.86,4.47,"(3.98, 4.96)",2.11,Alcohol related disorders
+G20,415,142.24,2.92,"(2.65, 3.19)",1.72,Parkinson's disease
+G30,389,165.87,2.35,"(2.11, 2.59)",1.28,Alzheimer's disease
+R26,188,19.43,9.68,"(8.29, 11.07)",1.06,Abnormalities of gait and mobility
+X45,100,4.54,22.03,"(17.72, 26.34)",0.96,Accidental poisoning by and explosure to alcohol
+R54,295,121.77,2.42,"(2.15, 2.69)",0.92,Age-related physical debility
+T51,101,14.27,7.08,"(5.71, 8.45)",0.82,Toxic effect of alcohol
+G93,261,171.52,1.52,"(1.34, 1.7)",0.67,Other disorders of brain
+T79,107,10.83,9.88,"(8, 11.76)",0.66,"Certain early complications of trauma, NEC"
+R55,103,11.77,8.75,"(7.06, 10.44)",0.6,Syncope and collapse
+I51,237,152.47,1.55,"(1.35, 1.75)",0.58,Complications and ill-defined descriptions of heart disease
+M81,98,11.9,8.24,"(6.61, 9.87)",0.5,Osteoporosis without current pathological fracture
+I26,175,112.1,1.56,"(1.32, 1.8)",0.47,Pulmonary embolism
+I13,83,22.89,3.63,"(2.85, 4.41)",0.4,Hypertensive heart and chronic kidney disease
+Y83,120,66.95,1.79,"(1.48, 2.1)",0.4,"Surg op & oth surg proc cause abn react/compl, w/o misadvnt"
+I38,98,37.2,2.63,"(2.1, 3.16)",0.39,"Endocarditis, valve unspecified"
+R56,126,74.4,1.69,"(1.4, 1.98)",0.38,"Convulsions, not elsewhere classified"
+D68,64,22.46,2.85,"(2.14, 3.56)",0.31,Other coagulation defects
+K70,52,21.82,2.38,"(1.73, 3.03)",0.28,Alcoholic liver disease
+D69,71,38.11,1.86,"(1.43, 2.29)",0.24,Purpura and other hemorrhagic conditions
+J43,87,54.25,1.6,"(1.27, 1.93)",0.24,Emphysema
+G31,72,38.43,1.87,"(1.44, 2.3)",0.22,"Oth degenerative diseases of nervous system, NEC"
+I80,93,61.74,1.51,"(1.2, 1.82)",0.22,Phlebitis and thrombophlebitis
+X31,32,3.21,9.97,"(6.52, 13.42)",0.21,Exposure to excessive natural cold
+T68,32,5.91,5.41,"(3.53, 7.29)",0.19,Hypothermia
+C92,30,10.17,2.95,"(1.89, 4.01)",0.17,Myeloid leukemia
+G12,25,4,6.25,"(3.8, 8.7)",0.16,Spinal muscular atrophy and related syndromes
+R42,25,1.39,17.99,"(10.93, 25.05)",0.15,Dizziness and giddiness
+C95,28,8.08,3.47,"(2.2, 4.74)",0.14,Leukemia of unspecified cell type
+C22,30,14.219999999999999,2.11,"(1.35, 2.87)",0.13,Malignant neoplasm of liver and intrahepatic bile ducts
+M45,17,1.96,8.67,"(4.55, 12.79)",0.13,Ankylosing spondylitis
+C90,31,16.96,1.83,"(1.18, 2.48)",0.12,Multiple myeloma and malignant plasma cell neoplasms
+G91,30,12.79,2.35,"(1.51, 3.19)",0.12,Hydrocephalus
+T73,2,0.25,8,"(-3.09, 19.09)",0.11,Effects of other deprivation
+Y86,23,6.55,3.51,"(2.08, 4.94)",0.11,Sequelae of other accidents
+G41,14,3.63,3.86,"(1.84, 5.88)",0.1,Status Epilepticus
+Y44,27,12.2,2.21,"(1.37, 3.05)",0.1,Agents primarily affecting blood constituents

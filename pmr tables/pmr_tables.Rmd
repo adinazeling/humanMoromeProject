@@ -120,8 +120,7 @@ par = function(summary, count, nfall, ntotal){
            u95_pmr = round(pmr + 1.96 * se_pmr, digits = 2)) %>% 
     filter(!str_detect(icd10, "^S"),
            !str_detect(icd10, "^T0"),
-           !str_detect(icd10, "^T1"),
-           exp > 1)
+           !str_detect(icd10, "^T1"))
   # Calculate PAR ------------------------------------------------------
   full_join(count, temp, by = "icd10") %>% 
     na.omit() %>% 
@@ -340,7 +339,7 @@ top10 = rbind(top10_y65, top10_y90) %>%
   distinct(ICD10)
 ```
 
-```{r, echo = FALSE, message = FALSE, error = FALSE}
+```{r, echo = FALSE, message = FALSE, error = FALSE, warning = FALSE}
 # Prepare dataset for plotting
 age_plot = age_sex_nest %>% 
   mutate(ntotal = map(.x = data, ~dim(.x)[1]),
@@ -348,7 +347,20 @@ age_plot = age_sex_nest %>%
   mutate(summary = map2(summary, ntotal, ~mutate(.x, ntotal = .y)),
          summary = map2(summary, nfall, ~mutate(.x, nfall = .y))) %>% 
   mutate(summary = pmap(list(summary, count, nfall, ntotal), par)) %>% 
-  unnest(summary) 
+  unnest(summary) %>% 
+  mutate(par = ifelse(par < 0, 0, par))
+
+# Add missing points for diseases 
+age_plot = age_plot %>% 
+  add_row(age_grp = "[80,85)", sex = "F", icd10 = "K70", par = 0) %>% 
+  add_row(age_grp = "[85,90)", sex = "F", icd10 = "K70", par = 0) %>% 
+  add_row(age_grp = "[90,120)", sex = "F", icd10 = "K70", par = 0) %>% 
+  add_row(age_grp = "[65,70)", sex = "F", icd10 = "R54", par = 0) %>% 
+  add_row(age_grp = "[90,120)", sex = "F", icd10 = "T51", par = 0) %>% 
+  add_row(age_grp = "[90,120)", sex = "M", icd10 = "T51", par = 0) %>% 
+  add_row(age_grp = "[90,120)", sex = "M", icd10 = "X45", par = 0) %>% 
+  add_row(age_grp = "[90,120)", sex = "F", icd10 = "X45", par = 0)
+  
 
 # Select rows which only have an icd10 code that is in the top 15 codes previously identified
 plot2 = tibble()
@@ -359,8 +371,11 @@ for (i in 1:dim(age_plot)) {
       }
   }
 }
+```
 
-plot2 %>% 
+```{r, echo = FALSE, warning = FALSE}
+library(ggrepel)
+p = plot2 %>% 
   mutate(label = ifelse(age_grp == "[90,120)", icd10, NA_character_),
          age_grp = fct_recode(age_grp,
                               "65-69" = "[65,70)",
@@ -368,15 +383,39 @@ plot2 %>%
                               "75-79" = "[75,80)",
                               "80-84" = "[80,85)",
                               "85-89" = "[85,90)",
-                              "90+" = "[90,120)")) %>% 
+                              "90+" = "[90,120)"),
+         sex = fct_recode(sex, "Male" = "M", "Female" = "F")) %>% 
   ggplot(aes(x = age_grp, y = par)) +
   geom_line(aes(group = icd10, color = icd10)) + 
   facet_grid(.~sex) + 
-  labs(title = "Change in Population Attributed Ratio (PAR) over age groups by sex",
+  labs(title = "Population attributed ratio (PAR) of comorbid conditions associated with deaths from falls in adults 65+ years by sex in 2017",
        x = "Age Group (Years)",
        y = "Population Attributed Ratio (PAR)") +
-  geom_text(aes(label = label, color = icd10)) + 
-  theme_minimal()
+  geom_text_repel(aes(x = age_grp, y = par, label = label, color = icd10),
+                  show.legend = FALSE, size = 5) + 
+  scale_y_continuous(breaks = c(0, 2, 4, 6, 8, 10, 12)) + 
+  viridis::scale_color_viridis(discrete = TRUE, name = "Disease", 
+                      labels = c("Diabetes Mellitus, unspecified (E14)",
+                                 "Dementia, unspecified (F03)", 
+                                 "Alcohol Related Disorder (F10)", 
+                                 "Parkinson's Disease (G20)", 
+                                 "Alzheimer's Disease (G30)",
+                                 "Hypertensive Heart Disease (I11)",
+                                 "Chronic Ischemic Heart Disease (I25)",
+                                 "Pulmonary Embolism (I26)",
+                                 "Other Chronic Obstructive Pulmonary Disease (J44)",
+                                 "Alcoholic Liver Disease (K70)",
+                                 "Osteoporosis (M81)",
+                                 "Abnormalities of Gait and Mobility (R26)",
+                                 "Age-related Physical Disability (R54)",
+                                 "Toxic Effect of Alcohol (T51)",
+                                 "Accidental Poisoning by Alcohol (X45)")) +
+  theme_minimal() + 
+  theme(legend.position = "bottom",
+        strip.text.x = element_text(size = 13, face = "bold"),
+        axis.text = element_text(size = 13),
+        axis.title = element_text(size = 13,face = "bold"),
+        plot.title = element_text(size = 14)) 
 
 ```
 

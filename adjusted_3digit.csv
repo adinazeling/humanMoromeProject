@@ -1,0 +1,41 @@
+ICD10,Obs,Exp,PMR,PMR_95CI,PAR,major
+I11,3728,396.97,9.39,"(9.1, 9.68)",10.19,Hypertensive heart disease
+I25,5840,2581.39,2.26,"(2.2, 2.32)",9.43,Chronic ischemic heart disease
+F03,4638,1633.84,2.84,"(2.76, 2.92)",7.78,Unspecified dementia
+E14,2508,1230.8,2.04,"(1.96, 2.12)",4.24,Unspecified diabetes mellitus
+G30,1162,448.49,2.59,"(2.43, 2.75)",1.93,Alzheimer's disease
+M81,781,100.71,7.75,"(7.2, 8.3)",1.87,Osteoporosis without current pathological fracture
+F10,404,88.45,4.57,"(4.12, 5.02)",1.33,Alcohol related disorders
+R54,865,358.23,2.41,"(2.25, 2.57)",1.29,Age-related physical debility
+G20,637,229.77,2.77,"(2.55, 2.99)",1.23,Parkinson's disease
+R26,438,49.7,8.81,"(7.99, 9.63)",1.16,Abnormalities of gait and mobility
+I26,461,241.32,1.91,"(1.73, 2.09)",0.78,Pulmonary embolism
+T79,214,20.95,10.21,"(8.84, 11.58)",0.65,"Certain early complications of trauma, NEC"
+X45,130,5.890000000000001,22.07,"(18.27, 25.87)",0.62,Accidental poisoning by and explosure to alcohol
+Y83,279,116.01,2.4,"(2.13, 2.67)",0.58,"Surg op & oth surg proc cause abn react/compl, w/o misadvnt"
+R55,202,23.69,8.53,"(7.35, 9.71)",0.55,Syncope and collapse
+I51,455,295.24,1.54,"(1.4, 1.68)",0.51,Complications and ill-defined descriptions of heart disease
+T51,132,22.91,5.76,"(4.78, 6.74)",0.51,Toxic effect of alcohol
+I13,183,42.32,4.32,"(3.69, 4.95)",0.45,Hypertensive heart and chronic kidney disease
+I38,221,75.83,2.91,"(2.52, 3.3)",0.45,"Endocarditis, valve unspecified"
+E66,257,160.82,1.6,"(1.4, 1.8)",0.42,Overweight and obesity
+C34,220,116.25,1.89,"(1.64, 2.14)",0.38,Malignant neoplasm of bronchus and lung
+D68,128,42.51,3.01,"(2.48, 3.54)",0.32,Other coagulation defects
+M89,134,55.18,2.43,"(2.02, 2.84)",0.28,Other disorders of bone
+T81,152,90.2,1.69,"(1.42, 1.96)",0.22,"Complications of procedures, not elsewhere classified"
+X31,71,5.75,12.35,"(9.47, 15.23)",0.22,Exposure to excessive natural cold
+K70,69,25.7,2.68,"(2.05, 3.31)",0.21,Alcoholic liver disease
+T68,73,10.75,6.79,"(5.24, 8.34)",0.21,Hypothermia
+G31,140,77.62,1.8,"(1.51, 2.09)",0.19,"Oth degenerative diseases of nervous system, NEC"
+J43,144,89.44,1.61,"(1.36, 1.86)",0.19,Emphysema
+D69,121,68.99,1.75,"(1.44, 2.06)",0.18,Purpura and other hemorrhagic conditions
+R42,62,3.5300000000000002,17.56,"(13.19, 21.93)",0.17,Dizziness and giddiness
+C90,67,29.25,2.29,"(1.74, 2.84)",0.14,Multiple myeloma and malignant plasma cell neoplasms
+D46,98,59.97,1.63,"(1.3, 1.96)",0.13,Myelodysplastic syndromes
+C92,44,17.73,2.48,"(1.75, 3.21)",0.11,Myeloid leukemia
+G12,33,6.32,5.22,"(3.44, 7)",0.11,Spinal muscular atrophy and related syndromes
+J95,35,13.65,2.56,"(1.72, 3.4)",0.11,"Intraop and postproc comp and disorders of resp sys, NEC"
+R52,69,41.05,1.68,"(1.29, 2.07)",0.11,"Pain, not elsewhere classified"
+T73,2,0.25,8,"(-3.09, 19.09)",0.11,Effects of other deprivation
+C22,44,20.2,2.18,"(1.53, 2.83)",0.1,Malignant neoplasm of liver and intrahepatic bile ducts
+C95,43,13.54,3.18,"(2.24, 4.12)",0.1,Leukemia of unspecified cell type
