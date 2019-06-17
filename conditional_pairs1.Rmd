@@ -1,0 +1,263 @@
+---
+title: "Conditional PMR Code"
+author: "Adina Zhang"
+date: "June 6, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## Try conditional PMR on sample dataset of 5000 observations
+
+```{r, message = FALSE}
+# Load datasets
+mort65plus = read_csv("./mort17_65plus.csv")
+icd10_df = read_csv("icd10_hierarchy.csv")
+```
+
+```{r}
+set.seed(1)
+# Simplify to a test dataset
+sample_df = mort65plus %>% 
+  sample_n(5000) %>% 
+  select(X1, icd10, ra2:ra20) %>% 
+  rename(id = X1)
+# Filter out number of individuals with underlying causes of death == W00-W19 (falls)
+sample_fall = sample_df %>% 
+  filter(grepl("W", icd10)) %>%
+  mutate(number = str_sub(icd10, 2, 3)) %>% 
+  filter(number <= 19) %>% select(-number) 
+# Tidy fall data
+# Filter out icd10 codes were are not interested in
+tidy_fall = sample_fall %>%
+  gather(key = ra_position, value = ra_value, ra2:ra20) %>% 
+  filter(!str_detect(ra_value, "^S"),
+         !str_detect(ra_value, "^T0"),
+         !str_detect(ra_value, "^T1")) %>% 
+  na.omit()
+```
+
+```{r}
+# Count observed number of pairs among falls
+# Count icd10 occurrence among falls
+fall_comb = tidy_fall %>%
+  select(-icd10, -ra_position) %>% 
+  mutate(n = 1) %>%
+  spread(ra_value, n, fill = 0) %>% 
+  select(-id) %>% 
+  {crossprod(as.matrix(.))} %>% 
+  replace(lower.tri(., diag = T), NA) %>% 
+  reshape2::melt(na.rm = T) %>% 
+  arrange(desc(value))
+```
+
+```{r}
+# Count pairs of icd10 codes among all 65+ adults
+sample_tidy = sample_df %>% 
+  gather(key = ra_position, value = ra_value, ra2:ra20) %>% 
+  na.omit()
+sample_comb = sample_tidy %>% 
+  select(-icd10, -ra_position) %>% 
+  mutate(n = 1) %>% 
+  # Filter out any duplicate data for the same person (one person had K729 
+  # entered twice)
+  distinct(id, ra_value, n) %>% 
+  spread(ra_value, n, fill = 0) %>% 
+  select(-id) %>% 
+  {crossprod(as.matrix(.))} %>% 
+  replace(lower.tri(., diag = T), NA) %>% 
+  reshape2::melt(na.rm = T) %>% 
+  arrange(desc(value))
+  
+```
+
+```{r}
+# Join fall with overall sample counts
+# Calculate expected value and PMR
+full_join(fall_comb, sample_comb, by = c("Var1", "Var2")) %>% 
+  rename(obs = value.x,
+         n = value.y) %>% 
+  mutate(prev = n / dim(sample_df)[1],
+         exp = prev * dim(sample_fall)[1],
+         pmr = obs / exp)
+```
+
+## Try conditional pmr on nested dataset
+
+```{r}
+# Function which counts the occurrence of pairs among an individual
+# For example, count the number of times a patient might have both I119 and I250 given they both had falling as an underlying cause
+countpairs = function(data){
+  data %>% 
+    select(-icd10, -ra_position) %>% 
+    mutate(n = 1) %>% 
+    # Filter out any duplicate data for the same person (one person had K729 
+    # entered twice)
+    distinct(id, ra_value, n) %>% 
+    spread(ra_value, n, fill = 0) %>% 
+    select(-id) %>% 
+    {crossprod(as.matrix(.))} %>% 
+    replace(lower.tri(., diag = T), NA) %>% 
+    reshape2::melt(na.rm = T) %>% 
+    arrange(desc(value)) %>% 
+    filter(Var2 != "<NA>")
+}
+
+# Function that subsets underlying cause of death from falls
+falls_death = function(data){
+  data %>% 
+    filter(grepl("W", icd10)) %>%
+    mutate(number = str_sub(icd10, 2, 3)) %>% 
+    filter(number <= 19) %>% # Not all W's are fall-related, just W00-W19
+    select(-number)
+}
+
+# Function to turn falls dataset into "tidy" or "long" version
+tidy = function(data){
+  data %>% 
+    gather(key = ra_position, value = ra_value, ra2:ra20) %>% 
+    rename(id = X1)
+}
+
+# Function to turn age-sex group population into "tidy" version
+tidy2 = function(data){
+  data %>% 
+    select(X1, icd10, ra2:ra20) %>% 
+    rename(id = X1) %>% 
+    gather(key = ra_position, value = ra_value, ra2:ra20) %>% 
+    na.omit()
+}
+
+# Function to count observed and expected values
+pmr_count = function(count1, count2, data, fall){
+  full_join(count1, count2, by = c("Var1", "Var2")) %>% 
+    rename(obs = value.x, n = value.y) %>% 
+    mutate(prev = n / dim(data)[1],
+         prev_fall = obs / dim(fall)[1],
+         expect = round(prev * dim(fall)[1], digits = 2),
+         pmr = obs/expect) %>% 
+    na.omit() %>% 
+    # For now this filter is here because I already ran the code for counting pairs. Look into implementing this code sooner
+    filter(!str_detect(Var1, "^S"),
+         !str_detect(Var1, "^T0"),
+         !str_detect(Var1, "^T1")) %>% 
+    filter(!str_detect(Var2, "^S"),
+         !str_detect(Var2, "^T0"),
+         !str_detect(Var2, "^T1"))
+}
+
+aggregate = function(data){
+  # Unnest nested data and aggregate across obs and expected values
+  summary = data %>% unnest(summary)
+  count = data %>% 
+    unnest(pop_pairs) %>% 
+    group_by(Var1, Var2) %>% 
+    summarize(n = sum(value))
+  my_list = list(summary, count)
+  return(my_list)
+}
+
+par = function(summary, count, nfall, ntotal){
+  # Calculate PMR ------------------------------------------------------ 
+  temp = summary %>% 
+    group_by(Var1, Var2, nfall , ntotal) %>% 
+    summarize(obs = sum(obs),
+              exp = sum(expect)) %>% 
+    mutate(pmr = round(obs/exp, digits = 2),
+           se_pmr = round(sqrt(obs)/exp, digits = 2),
+           l95_pmr = round(pmr - 1.96 * se_pmr, digits = 2),
+           u95_pmr = round(pmr + 1.96 * se_pmr, digits = 2)) %>% 
+    filter(exp > 1)
+  # Calculate PAR ------------------------------------------------------
+  full_join(count, temp, by = c("Var1", "Var2")) %>% 
+    na.omit() %>% 
+    mutate(prev = n/ntotal,
+           par = round(100 * ((prev * (pmr - 1)) / 
+                              (prev * (pmr - 1) + 1)), digits = 2)) %>%
+    arrange(desc(par))
+}
+
+# Function to tidy up the summary
+clean_summary = function(data){
+  data = data %>% 
+    select(Var1, Var2, obs, exp, pmr, l95_pmr, u95_pmr, par) %>%
+    filter(!is.na(pmr)) %>% 
+    unite(PMR_95CI, l95_pmr, u95_pmr, sep = ", ") %>%
+    mutate(PMR_95CI = paste0("(", PMR_95CI, ")")) %>% 
+    rename(Obs = obs,
+           Exp = exp,
+           PMR = pmr,
+           PAR = par)
+}
+```
+
+```{r, message = FALSE, error = FALSE}
+# Prepare datasets for use in functions
+  
+# Filter out number of individuals with underlying causes of death == W00-W19 (falls)
+falls = mort65plus %>% 
+  filter(grepl("W", icd10)) %>%
+  mutate(number = str_sub(icd10, 2, 3)) %>% 
+  filter(number <= 19) %>% 
+  rename(id = X1) %>% 
+  select(id, icd10, ra2:ra20)
+# Tidy fall data
+# Filter out icd10 codes were are not interested in
+tidy_falls = falls %>%
+  gather(key = ra_position, value = ra_value, ra2:ra20) %>% 
+  filter(!str_detect(ra_value, "^S"),
+         !str_detect(ra_value, "^T0"),
+         !str_detect(ra_value, "^T1")) %>% 
+  na.omit()
+test = tidy_pop %>% filter(ra_value %in% tidy_falls$ra_value)
+```
+
+```{r}
+# Prepare the nested dataset
+# Make appropriate age filters and groups for ages
+mort65plus = mort65plus %>% 
+  filter(age_value < 120) %>% 
+  mutate(age_grp = cut(age_value, 
+                       c(65, 70, 75, 80, 85, 90, 120), 
+                       right = FALSE))
+
+age_sex = mort65plus %>% 
+  select(age_grp, sex, X1, icd10, ra2:ra20)
+
+# Nest the dataset
+age_sex_nest = nest(age_sex, X1:ra20)
+```
+```{r, message = FALSE, error = FALSE}
+# Create a subsetted falls dataset
+temp = age_sex_nest %>% 
+  mutate(falls = map(.x = data, ~falls_death(.x))) %>% 
+  mutate(tidy_falls = map(.x = falls, ~tidy(.x)),
+         tidy_pop = map(.x = data, ~tidy2(.x))) %>% 
+  mutate(fall_pairs = map(.x = tidy_falls, ~countpairs(.x)))
+
+temp2 = temp %>% 
+  mutate(pop_pairs = map(.x = tidy_pop, ~countpairs(.x)))
+
+temp3 = temp2 %>% 
+  mutate(summary = pmap(list(fall_pairs, pop_pairs, data, falls), pmr_count))
+
+temp4 = temp3 %>% 
+  mutate(ntotal = map(.x = data, ~dim(.x)[1]),
+         nfall = map(.x = falls, ~dim(.x)[1])) %>% 
+  mutate(ntotal = Reduce("+", ntotal),
+         nfall = Reduce("+", nfall))
+
+temp4_agg = temp4 %>% aggregate()
+summary = par(temp4_agg[[1]], temp4_agg[[2]]) %>% 
+  clean_summary() %>% 
+  filter(PAR >= 0.1, PMR > 1.5)
+```
+
+
+
+
+
+
