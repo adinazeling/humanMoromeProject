@@ -1,68 +1,85 @@
 ---
-title: "Network Graphing"
+title: "Network Graph of Injury-Disease Interactions"
 author: "Adina Zhang"
 date: "May 27, 2019"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(dplyr)
 library(igraph)
-library(icd.data)
 ```
 
-```{r}
+```{r, include = FALSE}
 # ICD 10 hierarchy data
-icd10_df = icd10cm2016 %>% 
-  rename(icd10code = code) %>% 
-  data.frame() %>% 
-  mutate(icd10code = as.character(icd10code))
+icd10_df = read_csv("icd10_hierarchy.csv") %>% 
+  rename(id = three_digit)
 
-# Assign link data
-link = read_csv("ra_falls_edge.csv") %>% select(-short_desc) %>% 
-  mutate(from = "W00-W19") %>% 
-  select(from, icd10code, obs, expect, pmr, paf)
+# Assign edge data
+edge1 = read_csv("pairs_3digits.csv") %>% 
+  rename(from = Var1, to = Var2) %>% 
+  select(from, to, Obs, Exp, PMR, PAR)
 
-# Assign node data
-node = full_join(link, icd10_df, by = "icd10code") %>% 
-  filter(!is.na(obs)) %>% 
-  select(icd10code, short_desc, long_desc, three_digit, 
-         major, sub_chapter, chapter, pmr, paf) %>% 
-  add_row(icd10code = "W00-W19") %>% 
-  rename(id = icd10code)
+edge2 =  read_csv("edge_data.csv") %>% select(-major) %>% 
+  mutate(from = "W00-W19",
+         to = ICD10) %>% 
+  select(from, to, Obs, Exp, PMR, PAR) %>% 
+  filter(to %in% edge1$to | to %in% edge1$from | PAR > 0.1)
 
-link = link %>% rename(to = icd10code)
+edge = rbind(edge1, edge2)
+
+# Assign node data (create a better dataset that captures all the distinct nodes and prevalence data)
+node1 = distinct(edge, to) %>% rename(id = to)
+node2 = distinct(edge, from) %>% rename(id = from)
+node3 = rbind(node1, node2) %>% distinct(id)
+icd10_df = icd10_df %>% filter(id %in% node3$id) 
+node = full_join(node3, icd10_df, by = "id") %>% distinct(id, major, chapter)
 ```
 
 
-```{r}
-# Create igraph object
-net <- graph_from_data_frame(d = link, vertices = node, directed = T) 
-net
-```
-
-```{r}
-plot(net)
-
-```
-
-```{r}
+```{r, echo = FALSE}
 library(visNetwork)
-visNetwork(node, link, width = "100%", height = "400px")
-```
 
-```{r}
+# Define node and edge variables
 vis.nodes = node
-vis.links = link
+vis.links = edge
 
-vis.nodes$title = vis.nodes$short_desc
+# Adjust node settings
 vis.nodes$label = vis.nodes$id
-vis.nodes$size = vis.nodes$paf
+vis.nodes$title = vis.nodes$major
 
-visNetwork(vis.nodes, vis.links)
+# Adjust edge settings
+vis.links$title = paste(edge$from, " and ", edge$to, ", 
+                        PAR = ", edge$PAR, ", PMR = ", edge$PMR)
+vis.links$width = 1 + edge$PAR/8
+vis.links$color = "gray"
+
+# Plot network diagram
+visNetwork(vis.nodes, vis.links) 
 ```
 
+```{r, echo = FALSE}
+# Define node and edge variables
+vis.nodes = node
+vis.links = edge
+
+# Adjust node settings
+vis.nodes$label = vis.nodes$id
+vis.nodes$title = vis.nodes$major
+
+# Adjust edge settings
+vis.links$title = paste(edge$from, " and ", edge$to, ", 
+                        PAR = ", edge$PAR, ", PMR = ", edge$PMR)
+vis.links$width = 1 + edge$PAR/8
+
+# Plot circular network diagram
+visNetwork(vis.nodes, vis.links) %>% 
+  visIgraphLayout(layout = "layout_as_star") %>% 
+  visNodes(size = 10) %>% 
+  visOptions(highlightNearest = list(enabled = T, hover = T), 
+             nodesIdSelection = T)
+```
 
 

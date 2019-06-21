@@ -1,0 +1,569 @@
+ICD10,Obs,Exp,PMR,PMR_95CI,PAR,major
+I11,3728,396.97,9.39,"(9.1, 9.68)",10.19,Hypertensive heart disease
+I25,5840,2581.39,2.26,"(2.2, 2.32)",9.43,Chronic ischemic heart disease
+F03,4638,1633.84,2.84,"(2.76, 2.92)",7.78,Unspecified dementia
+E14,2508,1230.8,2.04,"(1.96, 2.12)",4.24,Unspecified diabetes mellitus
+I48,3143,2160.47,1.45,"(1.39, 1.51)",2.79,Atrial fibrillation and flutter
+J44,2401,1708.71,1.41,"(1.35, 1.47)",2.33,Other chronic obstructive pulmonary disease
+G30,1162,448.49,2.59,"(2.43, 2.75)",1.93,Alzheimer's disease
+M81,781,100.71,7.75,"(7.2, 8.3)",1.87,Osteoporosis without current pathological fracture
+F10,404,88.45,4.57,"(4.12, 5.02)",1.33,Alcohol related disorders
+R54,865,358.23,2.41,"(2.25, 2.57)",1.29,Age-related physical debility
+G20,637,229.77,2.77,"(2.55, 2.99)",1.23,Parkinson's disease
+R26,438,49.7,8.81,"(7.99, 9.63)",1.16,Abnormalities of gait and mobility
+I10,4407,4029.63,1.09,"(1.05, 1.13)",1.12,Essential (primary) hypertension
+I26,461,241.32,1.91,"(1.73, 2.09)",0.78,Pulmonary embolism
+T79,214,20.95,10.21,"(8.84, 11.58)",0.65,"Certain early complications of trauma, NEC"
+X45,130,5.890000000000001,22.07,"(18.27, 25.87)",0.62,Accidental poisoning by and explosure to alcohol
+Y83,279,116.01,2.4,"(2.13, 2.67)",0.58,"Surg op & oth surg proc cause abn react/compl, w/o misadvnt"
+R55,202,23.69,8.53,"(7.35, 9.71)",0.55,Syncope and collapse
+I51,455,295.24,1.54,"(1.4, 1.68)",0.51,Complications and ill-defined descriptions of heart disease
+T51,132,22.91,5.76,"(4.78, 6.74)",0.51,Toxic effect of alcohol
+G93,461,329.75,1.4,"(1.26, 1.54)",0.48,Other disorders of brain
+I13,183,42.32,4.32,"(3.69, 4.95)",0.45,Hypertensive heart and chronic kidney disease
+I38,221,75.83,2.91,"(2.52, 3.3)",0.45,"Endocarditis, valve unspecified"
+E66,257,160.82,1.6,"(1.4, 1.8)",0.42,Overweight and obesity
+R53,464,328.59999999999997,1.41,"(1.27, 1.55)",0.39,Malaise and fatigue
+C34,220,116.25,1.89,"(1.64, 2.14)",0.38,Malignant neoplasm of bronchus and lung
+D68,128,42.51,3.01,"(2.48, 3.54)",0.32,Other coagulation defects
+M89,134,55.18,2.43,"(2.02, 2.84)",0.28,Other disorders of bone
+R56,239,162.34,1.47,"(1.27, 1.67)",0.27,"Convulsions, not elsewhere classified"
+I80,204,139.71,1.46,"(1.26, 1.66)",0.22,Phlebitis and thrombophlebitis
+T81,152,90.2,1.69,"(1.42, 1.96)",0.22,"Complications of procedures, not elsewhere classified"
+X31,71,5.75,12.35,"(9.47, 15.23)",0.22,Exposure to excessive natural cold
+I35,358,286.68,1.25,"(1.11, 1.39)",0.21,Nonrheumatic aortic valve disorders
+K70,69,25.7,2.68,"(2.05, 3.31)",0.21,Alcoholic liver disease
+T68,73,10.75,6.79,"(5.24, 8.34)",0.21,Hypothermia
+G31,140,77.62,1.8,"(1.51, 2.09)",0.19,"Oth degenerative diseases of nervous system, NEC"
+J43,144,89.44,1.61,"(1.36, 1.86)",0.19,Emphysema
+D69,121,68.99,1.75,"(1.44, 2.06)",0.18,Purpura and other hemorrhagic conditions
+I64,698,641.24,1.09,"(1.01, 1.17)",0.18,"Stroke, not specified as haemorrhage or infarction"
+K74,184,142.31,1.29,"(1.09, 1.49)",0.17,Fibrosis and cirrhosis of liver
+R42,62,3.5300000000000002,17.56,"(13.19, 21.93)",0.17,Dizziness and giddiness
+C90,67,29.25,2.29,"(1.74, 2.84)",0.14,Multiple myeloma and malignant plasma cell neoplasms
+D46,98,59.97,1.63,"(1.3, 1.96)",0.13,Myelodysplastic syndromes
+C92,44,17.73,2.48,"(1.75, 3.21)",0.11,Myeloid leukemia
+G12,33,6.32,5.22,"(3.44, 7)",0.11,Spinal muscular atrophy and related syndromes
+J95,35,13.65,2.56,"(1.72, 3.4)",0.11,"Intraop and postproc comp and disorders of resp sys, NEC"
+R52,69,41.05,1.68,"(1.29, 2.07)",0.11,"Pain, not elsewhere classified"
+T73,2,0.25,8,"(-3.09, 19.09)",0.11,Effects of other deprivation
+C22,44,20.2,2.18,"(1.53, 2.83)",0.1,Malignant neoplasm of liver and intrahepatic bile ducts
+C95,43,13.54,3.18,"(2.24, 4.12)",0.1,Leukemia of unspecified cell type
+M45,22,2.58,8.53,"(4.96, 12.1)",0.09,Ankylosing spondylitis
+R90,1,0.06,16.67,"(-16, 49.34)",0.09,Abnormal findings on diagnostic imaging of cnsl
+Y44,52,23.24,2.24,"(1.63, 2.85)",0.09,Agents primarily affecting blood constituents
+Y86,43,15.34,2.8,"(1.96, 3.64)",0.09,Sequelae of other accidents
+C25,37,19.66,1.88,"(1.27, 2.49)",0.08,Malignant neoplasm of pancreas
+C71,22,5.32,4.14,"(2.42, 5.86)",0.08,Malignant neoplasm of brain
+D13,1,0.08,12.5,"(-12, 37)",0.08,Benign neoplasm of and ill-defined parts of digestive system
+F50,1,0.07,14.29,"(-13.72, 42.3)",0.08,Eating disorders
+G91,38,18.04,2.11,"(1.44, 2.78)",0.08,Hydrocephalus
+J12,1,0.16,6.25,"(-6, 18.5)",0.08,"Viral pneumonia, not elsewhere classified"
+R40,53,31.63,1.68,"(1.23, 2.13)",0.08,"Somnolence, stupor and coma"
+C50,149,127.7,1.17,"(0.97, 1.37)",0.07,Malignant neoplasm of breast
+C61,206,182.1,1.13,"(0.97, 1.29)",0.07,Malignant neoplasm of prostate
+D47,41,18.64,2.2,"(1.53, 2.87)",0.07,"Oth neoplm of uncrt behav of lymphoid, hematpoetc & rel tiss"
+F23,1,0.02,50,"(-48, 148)",0.07,Brief psychotic disorder
+G45,81,58.13,1.39,"(1.1, 1.68)",0.07,Transient cerebral ischemic attacks and related syndromes
+M62,81,60.1,1.35,"(1.06, 1.64)",0.07,Other disorders of muscle
+Q61,7,1.32,5.3,"(1.38, 9.22)",0.07,Cystic kidney disease
+V28,1,0.2,5,"(-4.8, 14.8)",0.07,Motorcycle rider injured in noncollision transport accident
+C06,5,0.98,5.1,"(0.63, 9.57)",0.06,Malignant neoplasm of other and unspecified parts of mouth
+C14,13,3.61,3.6,"(1.64, 5.56)",0.06,"Malig neoplasm of sites in the lip, oral cavity and pharynx"
+C75,1,0.09,11.11,"(-10.67, 32.89)",0.06,Malignant neoplasm of endo glands and related structures
+C80,63,44.07,1.43,"(1.08, 1.78)",0.06,Malignant neoplasm without specification of site
+C85,70,52.12,1.34,"(1.03, 1.65)",0.06,Oth and unspecified types of non-Hodgkin lymphoma
+E07,21,5.68,3.7,"(2.11, 5.29)",0.06,Other disorders of thyroid
+E80,1,0.12,8.33,"(-8, 24.66)",0.06,Disorders of porphyrin and bilirubin metabolism
+F42,1,0.02,50,"(-48, 148)",0.06,Obsessive-compulsive disorder
+G35,20,10.25,1.95,"(1.09, 2.81)",0.06,Multiple sclerosis
+G41,18,7.29,2.47,"(1.33, 3.61)",0.06,Status Epilepticus
+G61,5,1.1,4.55,"(0.57, 8.53)",0.06,Inflammatory polyneuropathy
+G62,45,28.099999999999998,1.6,"(1.13, 2.07)",0.06,Other and unspecified polyneuropathies
+G71,3,0.61,4.92,"(-0.65, 10.49)",0.06,Primary disorders of muscles
+M19,170,149.72,1.14,"(0.96, 1.32)",0.06,Other arthrosis
+Q07,1,0.07,14.29,"(-13.72, 42.3)",0.06,Other congenital malformations of nervous system
+T69,18,6.7299999999999995,2.67,"(1.44, 3.9)",0.06,Other effects of reduced temperature
+T71,62,45.6,1.36,"(1.03, 1.69)",0.06,Asphyxiation
+B49,2,0.72,2.78,"(-1.06, 6.62)",0.05,Unspecified mycosis
+B90,1,0.11,9.09,"(-8.73, 26.91)",0.05,Sequelae of tuberculosis
+C26,2,0.28,7.14,"(-2.76, 17.04)",0.05,Malignant neoplasm of other and ill-defined digestive organs
+D43,4,1.09,3.67,"(0.08, 7.26)",0.05,Neoplasm of uncertain behavior of brain and cnsl
+D44,3,0.53,5.66,"(-0.75, 12.07)",0.05,Neoplasm of uncertain behavior of endocrine glands
+D84,1,0.15,6.67,"(-6.4, 19.74)",0.05,Other immunodeficiencies
+E85,18,8.26,2.18,"(1.18, 3.18)",0.05,Amyloidosis
+F30,1,0.11,9.09,"(-8.73, 26.91)",0.05,Manic episode
+F43,33,20.66,1.6,"(1.05, 2.15)",0.05,"Reaction to severe stress, and adjustment disorders"
+F51,1,0.16,6.25,"(-6, 18.5)",0.05,Sleep disorders not due to a substance or known physiol cond
+F54,18,5.7700000000000005,3.12,"(1.67, 4.57)",0.05,Psych & behavrl factors assoc w disord or dis classd elswhr
+G23,12,2.5,4.8,"(2.08, 7.52)",0.05,Other degenerative diseases of basal ganglia
+H54,28,13.049999999999999,2.15,"(1.35, 2.95)",0.05,Blindness and low vision
+H90,1,0.17,5.88,"(-5.64, 17.4)",0.05,Conductive and sensorineural hearing loss
+K66,3,1.31,2.29,"(-0.3, 4.88)",0.05,Other disorders of peritoneum
+L08,20,10.6,1.89,"(1.07, 2.71)",0.05,Other local infections of skin and subcutaneous tissue
+M53,1,0.24,4.17,"(-4, 12.34)",0.05,"Other and unspecified dorsopathies, not elsewhere classified"
+M95,2,0.26,7.69,"(-2.97, 18.35)",0.05,Oth acquired deformities of ms sys and connective tissue
+N04,1,0.18,5.56,"(-5.34, 16.46)",0.05,Nephrotic syndrome
+N15,1,0.11,9.09,"(-8.73, 26.91)",0.05,Other renal tubulo-interstitial diseases
+Q28,3,0.26,11.54,"(-1.51, 24.59)",0.05,Other congenital malformations of circulatory system
+Q87,1,0.17,5.88,"(-5.64, 17.4)",0.05,Oth congenital malform syndromes affecting multiple systems
+R51,4,0.3,13.33,"(0.26, 26.4)",0.05,Headache
+R76,1,0.15,6.67,"(-6.4, 19.74)",0.05,Other abnormal immunological findings in serum
+X11,1,0.13,7.69,"(-7.38, 22.76)",0.05,Contact with hot tap-water
+X30,4,0.54,7.41,"(0.16, 14.66)",0.05,Exposure to excessive natural heat
+B91,16,3.93,4.07,"(2.07, 6.07)",0.04,Sequelae of poliomyelitis
+C05,1,0.09,11.11,"(-10.67, 32.89)",0.04,Malignant neoplasm of palate
+C15,22,12.28,1.79,"(1.05, 2.53)",0.04,Malignant neoplasm of esophagus
+C23,1,0.12,8.33,"(-8, 24.66)",0.04,Malignant neoplasm of gallbladder
+C45,12,3.25,3.69,"(1.59, 5.79)",0.04,Malignant neoplasm of prph nerves and autonomic nervous sys
+C45,12,3.25,3.69,"(1.59, 5.79)",0.04,Malignant neoplasm of retroperitoneum and peritoneum
+C70,1,0.08,12.5,"(-12, 37)",0.04,Malignant neoplasm of meninges
+C73,5,1.84,2.72,"(0.33, 5.11)",0.04,Malignant neoplasm of thyroid gland
+C88,5,1.25,4,"(0.49, 7.51)",0.04,Malig immunoproliferative dis and certain oth B-cell lymph
+D18,8,1.07,7.48,"(2.31, 12.65)",0.04,"Hemangioma and lymphangioma, any site"
+D32,17,6.79,2.5,"(1.3, 3.7)",0.04,Benign neoplasm of meninges
+D33,8,1.18,6.78,"(2.08, 11.48)",0.04,Benign neoplasm of brain and oth prt central nervous system
+D66,5,0.37,13.51,"(1.67, 25.35)",0.04,Hereditary factor VIII deficiency
+D83,1,0.09,11.11,"(-10.67, 32.89)",0.04,Common variable immunodeficiency
+E24,2,0.24,8.33,"(-3.21, 19.87)",0.04,Cushing's syndrome
+F60,1,0.2,5,"(-4.8, 14.8)",0.04,Specific personality disorders
+F79,4,1.25,3.2,"(0.06, 6.34)",0.04,Unspecified intellectual disabilities
+F81,2,0.41000000000000003,4.88,"(-1.88, 11.64)",0.04,Specific developmental disorders of scholastic skills
+G10,6,0.6799999999999999,8.82,"(1.76, 15.88)",0.04,Huntington's disease
+G37,1,0.15,6.67,"(-6.4, 19.74)",0.04,Other demyelinating diseases of central nervous system
+G60,4,0.87,4.6,"(0.09, 9.11)",0.04,Hereditary and idiopathic neuropathy
+I05,28,17.09,1.64,"(1.03, 2.25)",0.04,Rheumatic mitral valve diseases
+I08,23,12.28,1.87,"(1.11, 2.63)",0.04,Multiple valve diseases
+I85,1,0.45,2.22,"(-2.13, 6.57)",0.04,Esophageal varices
+J13,2,0.27,7.41,"(-2.86, 17.68)",0.04,Pneumonia due to Streptococcus pneumoniae
+J39,2,0.69,2.9,"(-1.12, 6.92)",0.04,Other diseases of upper respiratory tract
+K61,1,0.15,6.67,"(-6.4, 19.74)",0.04,Abscess of anal and rectal regions
+M13,44,32.12,1.37,"(0.96, 1.78)",0.04,Other arthritis
+M33,1,0.3,3.33,"(-3.2, 9.86)",0.04,Dermatopolymyositis
+M72,6,1.9300000000000002,3.11,"(0.62, 5.6)",0.04,Fibroblastic disorders
+N11,5,0.46,10.87,"(1.34, 20.4)",0.04,Chronic tubulo-interstitial nephritis
+N26,1,0.09,11.11,"(-10.67, 32.89)",0.04,Unspecified contracted kidney
+Q23,1,0.14,7.14,"(-6.85, 21.13)",0.04,Congenital malformations of aortic and mitral valves
+Q24,4,0.63,6.35,"(0.14, 12.56)",0.04,Other congenital malformations of heart
+Q78,4,0.59,6.78,"(0.14, 13.42)",0.04,Other osteochondrodysplasias
+Q85,3,0.63,4.76,"(-0.63, 10.15)",0.04,"Phakomatoses, not elsewhere classified"
+R05,2,0.21,9.52,"(-3.67, 22.71)",0.04,Cough
+R25,8,1.64,4.88,"(1.51, 8.25)",0.04,Abnormal involuntary movements
+R74,1,0.32,3.12,"(-3, 9.24)",0.04,Abnormal serum enzyme levels
+R78,6,1.29,4.65,"(0.93, 8.37)",0.04,"Find of drugs and oth substnc, not normally found in blood"
+T70,1,0.32,3.12,"(-3, 9.24)",0.04,Effects of air pressure and water pressure
+X04,1,0.05,20,"(-19.2, 59.2)",0.04,Exposure to ignition of highly flammable material
+B15,2,0.14,14.29,"(-5.51, 34.09)",0.03,Acute hepatitis A
+B17,1,0.19,5.26,"(-5.05, 15.57)",0.03,Other acute viral hepatitis
+B34,1,0.44,2.27,"(-2.18, 6.72)",0.03,Viral infection of unspecified site
+C11,2,0.33999999999999997,5.88,"(-2.27, 14.03)",0.03,Malignant neoplasm of nasopharynx
+C24,2,0.64,3.12,"(-1.21, 7.45)",0.03,Malignant neoplasm of other and unsp parts of biliary tract
+C30,1,0.06,16.67,"(-16, 49.34)",0.03,Malignant neoplasm of nasal cavity and middle ear
+C49,6,2.98,2.01,"(0.4, 3.62)",0.03,Merkel cell carcinoma
+C62,2,0.5700000000000001,3.51,"(-1.35, 8.37)",0.03,Malignant neoplasm of testis
+D12,1,0.2,5,"(-4.8, 14.8)",0.03,"Benign neoplasm of colon, rectum, anus and anal canal"
+D35,1,0.28,3.57,"(-3.43, 10.57)",0.03,Benign neoplasm of other and unspecified endocrine glands
+D45,12,5.48,2.19,"(0.96, 3.42)",0.03,Polycythemia vera
+D52,3,0.5900000000000001,5.08,"(-0.68, 10.84)",0.03,Folate deficiency anemia
+D53,1,0.15,6.67,"(-6.4, 19.74)",0.03,Other nutritional anemias
+D58,5,1.46,3.42,"(0.42, 6.42)",0.03,Other hereditary hemolytic anemias
+D62,32,25.21,1.27,"(0.84, 1.7)",0.03,Acute posthemorrhagic anemia
+D71,2,0.07,28.57,"(-11.02, 68.16)",0.03,Functional disorders of polymorphonuclear neutrophils
+D80,1,0.23,4.35,"(-4.18, 12.88)",0.03,Immunodeficiency with predominantly antibody defects
+E20,2,0.26,7.69,"(-2.97, 18.35)",0.03,Hypoparathyroidism
+E74,1,0.38,2.63,"(-2.52, 7.78)",0.03,Other disorders of carbohydrate metabolism
+E89,2,0.56,3.57,"(-1.39, 8.53)",0.03,"Postproc endocrine and metabolic comp and disorders, NEC"
+F29,1,0.33,3.03,"(-2.91, 8.97)",0.03,Unsp psychosis not due to a substance or known physiol cond
+F34,1,0.16,6.25,"(-6, 18.5)",0.03,Persistent mood [affective] disorders
+F84,1,0.16,6.25,"(-6, 18.5)",0.03,Pervasive developmental disorders
+F90,1,0.12,8.33,"(-8, 24.66)",0.03,Attention-deficit hyperactivity disorders
+G06,5,1.51,3.31,"(0.41, 6.21)",0.03,Intracranial and intraspinal abscess and granuloma
+G11,2,0.45,4.44,"(-1.71, 10.59)",0.03,Hereditary ataxia
+G14,6,2.22,2.7,"(0.54, 4.86)",0.03,Postpolio syndrome
+G24,3,0.8300000000000001,3.61,"(-0.49, 7.71)",0.03,Dystonia
+G96,1,0.2,5,"(-4.8, 14.8)",0.03,Other disorders of central nervous system
+I09,10,4.88,2.05,"(0.78, 3.32)",0.03,Other rheumatic heart diseases
+I30,2,0.24,8.33,"(-3.21, 19.87)",0.03,Acute pericarditis
+J42,1,0.41,2.44,"(-2.34, 7.22)",0.03,Unspecified chronic bronchitis
+J86,8,4.75,1.68,"(0.5, 2.86)",0.03,Pyothorax
+J94,5,2.54,1.97,"(0.25, 3.69)",0.03,Other pleural conditions
+K28,1,0.2,5,"(-4.8, 14.8)",0.03,Gastrojejunal ulcer
+K40,2,0.78,2.56,"(-0.99, 6.11)",0.03,Inguinal hernia
+K43,1,0.33,3.03,"(-2.91, 8.97)",0.03,Ventral hernia
+K73,2,0.39,5.13,"(-1.98, 12.24)",0.03,"Chronic hepatitis, not elsewhere classified"
+L93,9,4.2700000000000005,2.11,"(0.74, 3.48)",0.03,Lupus erythematosus
+M32,7,3.33,2.1,"(0.55, 3.65)",0.03,Systemic lupus erythematosus (SLE)
+M51,15,9.08,1.65,"(0.81, 2.49)",0.03,"Thoracic, thoracolum, and lumbosacral intvrt disc disorders"
+N03,1,0.2,5,"(-4.8, 14.8)",0.03,Chronic nephritic syndrome
+N50,1,0.13,7.69,"(-7.38, 22.76)",0.03,Other and unspecified disorders of male genital organs
+N85,1,0.3,3.33,"(-3.2, 9.86)",0.03,"Other noninflammatory disorders of uterus, except cervix"
+N94,3,0.75,4,"(-0.53, 8.53)",0.03,Pain and oth cond assoc w fem gntl org and menstrual cycle
+Q82,2,0.35,5.71,"(-2.21, 13.63)",0.03,Other congenital malformations of skin
+R27,13,4.63,2.81,"(1.28, 4.34)",0.03,Other lack of coordination
+R29,18,11.28,1.6,"(0.86, 2.34)",0.03,Oth symptoms and signs involving the nervous and ms systems
+T67,7,4.1,1.71,"(0.44, 2.98)",0.03,Effects of heat and light
+A02,1,0.3,3.33,"(-3.2, 9.86)",0.02,Other salmonella infections
+A16,3,1.05,2.86,"(-0.37, 6.09)",0.02,"Respiratory tuberculosis, not confirmed"
+A53,1,0.08,12.5,"(-12, 37)",0.02,Other and unspecified syphilis
+B23,3,1.09,2.75,"(-0.37, 5.87)",0.02,Human immunodeficiency virus [HIV] disease resulting in other conditions
+B44,1,0.47,2.13,"(-2.04, 6.3)",0.02,Aspergillosis
+B99,11,7.12,1.54,"(0.62, 2.46)",0.02,Other and unspecified infectious diseases
+C02,6,3.53,1.7,"(0.35, 3.05)",0.02,Malignant neoplasm of other and unspecified parts of tongue
+C09,3,0.83,3.61,"(-0.49, 7.71)",0.02,Malignant neoplasm of tonsil
+C10,2,0.5800000000000001,3.45,"(-1.33, 8.23)",0.02,Malignant neoplasm of oropharynx
+C16,13,8.75,1.49,"(0.69, 2.29)",0.02,Malignant neoplasm of stomach
+C18,95,89.56,1.06,"(0.84, 1.28)",0.02,Malignant neoplasm of colon
+C19,1,0.4,2.5,"(-2.4, 7.4)",0.02,Malignant neoplasm of rectosigmoid junction
+C21,1,0.3,3.33,"(-3.2, 9.86)",0.02,Malignant neoplasm of anus and anal canal
+C64,38,31.89,1.19,"(0.82, 1.56)",0.02,"Malignant neoplasm of kidney, except renal pelvis"
+C65,1,0.14,7.14,"(-6.85, 21.13)",0.02,Malignant neoplasm of renal pelvis
+C69,1,0.56,1.79,"(-1.72, 5.3)",0.02,Malignant neoplasm of eye and adnexa
+C76,2,1,2,"(-0.76, 4.76)",0.02,Secondary malignant neoplasm of resp and digestive organs
+C76,2,1,2,"(-0.76, 4.76)",0.02,Secondary malignant neoplasm of other and unspecified sites
+D09,1,0.25,4,"(-3.84, 11.84)",0.02,Carcinoma in situ of other and unspecified sites
+D25,1,0.12,8.33,"(-8, 24.66)",0.02,Leiomyoma of uterus
+D37,3,1.85,1.62,"(-0.22, 3.46)",0.02,Neoplasm of uncertain behavior of female genital organs
+D37,3,1.85,1.62,"(-0.22, 3.46)",0.02,Benign neuroendocrine tumors
+D38,3,1.21,2.48,"(-0.32, 5.28)",0.02,Benign neuroendocrine tumors
+D40,2,0.52,3.85,"(-1.48, 9.18)",0.02,Neoplasm of uncertain behavior of male genital organs
+D51,4,1.41,2.84,"(0.06, 5.62)",0.02,Vitamin B12 deficiency anemia
+D73,2,0.84,2.38,"(-0.91, 5.67)",0.02,Diseases of spleen
+D86,5,3.11,1.61,"(0.2, 3.02)",0.02,Sarcoidosis
+E06,2,0.44,4.55,"(-1.74, 10.84)",0.02,Thyroiditis
+E22,5,2.3200000000000003,2.16,"(0.28, 4.04)",0.02,Hyperfunction of pituitary gland
+E55,4,1.26,3.17,"(0.05, 6.29)",0.02,Vitamin D deficiency
+F05,31,25.3,1.23,"(0.8, 1.66)",0.02,Delirium due to known physiological condition
+F07,2,0.44,4.55,"(-1.74, 10.84)",0.02,Personality & behavrl disorders due to known physiol cond
+F48,1,0.14,7.14,"(-6.85, 21.13)",0.02,Other nonpsychotic mental disorders
+G03,3,1.2,2.5,"(-0.32, 5.32)",0.02,Meningitis due to other and unspecified causes
+G25,4,2.5700000000000003,1.56,"(0.03, 3.09)",0.02,Other extrapyramidal and movement disorders
+G51,1,0.29,3.45,"(-3.31, 10.21)",0.02,Facial nerve disorders
+G72,2,0.95,2.11,"(-0.81, 5.03)",0.02,Other and unspecified myopathies
+G80,4,2.2,1.82,"(0.04, 3.6)",0.02,Cerebral palsy
+G90,6,3.05,1.97,"(0.4, 3.54)",0.02,Disorders of autonomic nervous system
+G92,2,0.53,3.77,"(-1.46, 9)",0.02,Toxic encephalopathy
+G95,5,3.43,1.46,"(0.19, 2.73)",0.02,Other and unspecified diseases of spinal cord
+G97,3,1.0899999999999999,2.75,"(-0.37, 5.87)",0.02,"Intraop and postproc comp and disorders of nervous sys, NEC"
+H70,1,0.58,1.72,"(-1.65, 5.09)",0.02,Mastoiditis and related conditions
+H81,5,2.93,1.71,"(0.22, 3.2)",0.02,Disorders of vestibular function
+H93,1,0.64,1.56,"(-1.5, 4.62)",0.02,"Other disorders of ear, not elsewhere classified"
+J38,2,0.88,2.27,"(-0.89, 5.43)",0.02,"Diseases of vocal cords and larynx, not elsewhere classified"
+J60,1,0.33,3.03,"(-2.91, 8.97)",0.02,Coalworker's pneumoconiosis
+J62,1,0.14,7.14,"(-6.85, 21.13)",0.02,Pneumoconiosis due to dust containing silica
+J82,3,0.72,4.17,"(-0.55, 8.89)",0.02,"Pulmonary eosinophilia, not elsewhere classified"
+K11,3,1.23,2.44,"(-0.32, 5.2)",0.02,Diseases of salivary glands
+K14,1,0.22,4.55,"(-4.37, 13.47)",0.02,Diseases of tongue
+K20,2,0.96,2.08,"(-0.8, 4.96)",0.02,Esophagitis
+K29,4,2.86,1.4,"(0.03, 2.77)",0.02,Gastritis and duodenitis
+K46,5,1.9700000000000002,2.54,"(0.31, 4.77)",0.02,Unspecified abdominal hernia
+K81,4,2.86,1.4,"(0.03, 2.77)",0.02,Cholecystitis
+K82,3,1.4300000000000002,2.1,"(-0.27, 4.47)",0.02,Other diseases of gallbladder
+K90,3,1.43,2.1,"(-0.27, 4.47)",0.02,Intestinal malabsorption
+L40,1,0.49,2.04,"(-1.96, 6.04)",0.02,Psoriasis
+L57,2,0.38,5.26,"(-2.03, 12.55)",0.02,Skin changes due to chronic expsr to nonionizing radiation
+M16,3,1.26,2.38,"(-0.31, 5.07)",0.02,Arthrosis of hip
+M34,6,4.03,1.49,"(0.29, 2.69)",0.02,Systemic sclerosis [scleroderma]
+M40,9,6.13,1.47,"(0.51, 2.43)",0.02,Kyphosis and lordosis
+M47,11,8.12,1.35,"(0.55, 2.15)",0.02,Spondylosis
+M50,1,0.51,1.96,"(-1.88, 5.8)",0.02,Cervical disc disorders
+M79,16,11.61,1.38,"(0.71, 2.05)",0.02,"Oth and unsp soft tissue disorders, not elsewhere classified"
+N05,1,0.33,3.03,"(-2.91, 8.97)",0.02,Unspecified nephritic syndrome
+N10,4,1.29,3.1,"(0.06, 6.14)",0.02,Acute tubulo-interstitial nephritis
+N14,1,0.16,6.25,"(-6, 18.5)",0.02,Drug- & heavy-metal-induced tubulo-interstitial & tublr cond
+N20,3,1.81,1.66,"(-0.22, 3.54)",0.02,Calculus of kidney and ureter
+N31,6,4.14,1.45,"(0.29, 2.61)",0.02,"Neuromuscular dysfunction of bladder, NEC"
+N36,1,0.32,3.12,"(-3, 9.24)",0.02,Other disorders of urethra
+N64,2,0.83,2.41,"(-0.92, 5.74)",0.02,Other disorders of breast
+N76,1,0.27,3.7,"(-3.55, 10.95)",0.02,Other inflammation of vagina and vulva
+N81,1,0.36,2.78,"(-2.67, 8.23)",0.02,Female genital prolapse
+Q27,4,1.8399999999999999,2.17,"(0.03, 4.31)",0.02,Other congenital malformations of peripheral vascular system
+Q60,1,0.23,4.35,"(-4.18, 12.88)",0.02,Renal agenesis and other reduction defects of kidney
+R14,1,0.22,4.55,"(-4.37, 13.47)",0.02,Flatulence and related conditions
+R16,1,0.29,3.45,"(-3.31, 10.21)",0.02,"Hepatomegaly and splenomegaly, not elsewhere classified"
+R20,1,0.14,7.14,"(-6.85, 21.13)",0.02,Disturbances of skin sensation
+R34,2,1.29,1.55,"(-0.61, 3.71)",0.02,Anuria and oliguria
+R41,60,53.199999999999996,1.13,"(0.84, 1.42)",0.02,Oth symptoms and signs w cognitive functions and awareness
+R44,1,0.35,2.86,"(-2.75, 8.47)",0.02,Oth symptoms and signs w general sensations and perceptions
+V89,4,2.26,1.77,"(0.05, 3.49)",0.02,"Motor- or nonmotor-vehicle accident, type of vehicle unsp"
+A40,4,2.32,1.72,"(0.03, 3.41)",0.01,Streptococcal sepsis
+A52,1,0.64,1.56,"(-1.5, 4.62)",0.01,Late syphilis
+B02,8,6.63,1.21,"(0.37, 2.05)",0.01,Zoster [herpes zoster]
+B16,1,0.75,1.33,"(-1.28, 3.94)",0.01,Acute hepatitis B
+C32,11,9.01,1.22,"(0.49, 1.95)",0.01,Malignant neoplasm of larynx
+C51,2,1.09,1.83,"(-0.72, 4.38)",0.01,Malignant neoplasm of vulva
+C52,2,0.37,5.41,"(-2.08, 12.9)",0.01,Malignant neoplasm of vagina
+C53,2,1.17,1.71,"(-0.66, 4.08)",0.01,Malignant neoplasm of cervix uteri
+C54,9,6.17,1.46,"(0.5, 2.42)",0.01,Malignant neoplasm of corpus uteri
+C81,5,4.35,1.15,"(0.15, 2.15)",0.01,Hodgkin lymphoma
+C91,51,47.46,1.07,"(0.78, 1.36)",0.01,Lymphoid leukemia
+D41,6,3.4699999999999998,1.73,"(0.34, 3.12)",0.01,Neoplasm of uncertain behavior of urinary organs
+D48,3,2.19,1.37,"(-0.18, 2.92)",0.01,Neoplasm of uncertain behavior of other and unsp sites
+D56,1,0.37,2.7,"(-2.59, 7.99)",0.01,Thalassemia
+D75,3,2.16,1.39,"(-0.18, 2.96)",0.01,Other and unsp diseases of blood and blood-forming organs
+D89,3,2.61,1.15,"(-0.14, 2.44)",0.01,"Oth disorders involving the immune mechanism, NEC"
+E27,10,8.16,1.23,"(0.47, 1.99)",0.01,Other disorders of adrenal gland
+E44,2,1.4100000000000001,1.42,"(-0.54, 3.38)",0.01,Protein-calorie malnutrition of moderate and mild degree
+E45,4,2.67,1.5,"(0.03, 2.97)",0.01,Retarded development following protein-calorie malnutrition
+F06,30,28.38,1.06,"(0.69, 1.43)",0.01,Other mental disorders due to known physiological condition
+F09,1,0.58,1.72,"(-1.65, 5.09)",0.01,Unsp mental disorder due to known physiological condition
+F13,2,1.5299999999999998,1.31,"(-0.49, 3.11)",0.01,"Sedative, hypnotic, or anxiolytic related disorders"
+F14,3,2.63,1.14,"(-0.15, 2.43)",0.01,Cocaine related disorders
+F22,4,2.32,1.72,"(0.03, 3.41)",0.01,Delusional disorders
+F25,2,1.33,1.5,"(-0.58, 3.58)",0.01,Schizoaffective disorders
+F40,1,0.68,1.47,"(-1.41, 4.35)",0.01,Phobic anxiety disorders
+G04,3,1.9,1.58,"(-0.2, 3.36)",0.01,"Encephalitis, myelitis and encephalomyelitis"
+G70,9,8.19,1.1,"(0.37, 1.83)",0.01,Myasthenia gravis and other myoneural disorders
+G83,2,1.37,1.46,"(-0.56, 3.48)",0.01,Other paralytic syndromes
+I06,3,1.04,2.88,"(-0.39, 6.15)",0.01,Rheumatic aortic valve diseases
+I07,8,6.18,1.29,"(0.39, 2.19)",0.01,Rheumatic tricuspid valve diseases
+I72,5,3.16,1.58,"(0.19, 2.97)",0.01,Other aneurysm
+I81,2,1.19,1.68,"(-0.65, 4.01)",0.01,Portal vein thrombosis
+J11,12,10.26,1.17,"(0.5, 1.84)",0.01,Influenza due to unidentified influenza virus
+J45,64,62.18,1.03,"(0.78, 1.28)",0.01,Asthma
+J47,10,8.74,1.14,"(0.43, 1.85)",0.01,Bronchiectasis
+J98,110,105.52,1.04,"(0.84, 1.24)",0.01,Other respiratory disorders
+K04,1,0.44,2.27,"(-2.18, 6.72)",0.01,Diseases of pulp and periapical tissues
+K44,7,5.45,1.28,"(0.32, 2.24)",0.01,Diaphragmatic hernia
+K58,3,2.1399999999999997,1.4,"(-0.19, 2.99)",0.01,Irritable bowel syndrome
+M31,3,2.27,1.32,"(-0.17, 2.81)",0.01,Other necrotizing vasculopathies
+M41,12,10.84,1.11,"(0.48, 1.74)",0.01,Scoliosis
+M43,8,6.77,1.18,"(0.36, 2)",0.01,Other deforming dorsopathies
+M77,1,0.54,1.85,"(-1.78, 5.48)",0.01,Other enthesopathies
+M88,6,3.92,1.53,"(0.31, 2.75)",0.01,Osteitis deformans [Paget's disease of bone]
+M96,2,1.22,1.64,"(-0.63, 3.91)",0.01,"Intraop and postproc comp and disorders of ms sys, NEC"
+N12,2,1.52,1.32,"(-0.5, 3.14)",0.01,"Tubulo-interstitial nephritis, not spcf as acute or chronic"
+N41,1,0.51,1.96,"(-1.88, 5.8)",0.01,Inflammatory diseases of prostate
+N42,1,0.56,1.79,"(-1.72, 5.3)",0.01,Other and unspecified disorders of prostate
+N73,2,1.02,1.96,"(-0.76, 4.68)",0.01,Other female pelvic inflammatory diseases
+N82,1,0.66,1.52,"(-1.46, 4.5)",0.01,Fistulae involving female genital tract
+Q90,1,0.41,2.44,"(-2.34, 7.22)",0.01,Down syndrome
+R01,2,1.05,1.9,"(-0.75, 4.55)",0.01,Cardiac murmurs and other cardiac sounds
+R11,17,15.87,1.07,"(0.56, 1.58)",0.01,Nausea and vomiting
+R45,6,4.72,1.27,"(0.25, 2.29)",0.01,Symptoms and signs involving emotional state
+R87,1,0.75,1.33,"(-1.28, 3.94)",0.01,Abnormal findings in specimens from female genital organs
+R94,2,1.51,1.32,"(-0.52, 3.16)",0.01,Abnormal results of function studies
+T27,1,0.7,1.43,"(-1.37, 4.23)",0.01,Burn and corrosion of respiratory tract
+W01,1,0.69,1.45,"(-1.39, 4.29)",0.01,"Fall on same level from slipping, tripping and stumbling"
+W34,2,1.35,1.48,"(-0.58, 3.54)",0.01,Acc disch and malfunct from oth and unsp firearms and guns
+W55,1,0.84,1.19,"(-1.14, 3.52)",0.01,Contact with other mammals
+X37,2,1.6,1.25,"(-0.47, 2.97)",0.01,Cataclysmic storm
+C20,6,5.63,1.07,"(0.21, 1.93)",0,Malignant neoplasm of rectum
+C55,9,8.09,1.11,"(0.38, 1.84)",0,"Malignant neoplasm of uterus, part unspecified"
+C56,12,10.85,1.11,"(0.48, 1.74)",0,Malignant neoplasm of ovary
+D72,11,10.74,1.02,"(0.41, 1.63)",0,Other disorders of white blood cells
+E04,1,0.85,1.18,"(-1.13, 3.49)",0,Other nontoxic goiter
+E21,4,3.85,1.04,"(0.02, 2.06)",0,Hyperparathyroidism and other disorders of parathyroid gland
+E41,1,0.85,1.18,"(-1.13, 3.49)",0,Nutritional marasmus
+E53,1,0.88,1.14,"(-1.09, 3.37)",0,Deficiency of other B group vitamins
+E56,2,2.23,0.9,"(-0.33, 2.13)",-0,Other vitamin deficiencies
+E63,8,7.07,1.13,"(0.35, 1.91)",0,Other nutritional deficiencies
+F11,7,7.5600000000000005,0.93,"(0.24, 1.62)",-0,Opioid related disorders
+F15,1,0.91,1.1,"(-1.06, 3.26)",0,Other stimulant related disorders
+F19,24,23.4,1.03,"(0.62, 1.44)",0,Other psychoactive substance related disorders
+F20,16,16.5,0.97,"(0.5, 1.44)",-0,Schizophrenia
+H35,32,31.939999999999998,1,"(0.65, 1.35)",0,Other retinal disorders
+H66,1,0.92,1.09,"(-1.05, 3.23)",0,Suppurative and unspecified otitis media
+H91,8,8.35,0.96,"(0.29, 1.63)",-0,Other and unspecified hearing loss
+I77,12,12.08,0.99,"(0.42, 1.56)",-0,Other disorders of arteries and arterioles
+I89,4,3.56,1.12,"(0.02, 2.22)",0,Oth noninfective disorders of lymphatic vessels and nodes
+J10,8,7.79,1.03,"(0.32, 1.74)",0,Influenza due to other identified influenza virus
+J40,2,2.5,0.8,"(-0.32, 1.92)",-0,"Bronchitis, not specified as acute or chronic"
+K25,5,4.78,1.05,"(0.13, 1.97)",0,Gastric ulcer
+K26,10,10.16,0.98,"(0.37, 1.59)",-0,Duodenal ulcer
+K52,2,2,1,"(-0.39, 2.39)",0,Other and unsp noninfective gastroenteritis and colitis
+K75,4,4.24,0.94,"(0.02, 1.86)",-0,Other inflammatory liver diseases
+M48,61,60.3,1.01,"(0.76, 1.26)",0,Other spondylopathies
+M94,1,1.08,0.93,"(-0.89, 2.75)",-0,Other disorders of cartilage
+N30,10,11.15,0.9,"(0.35, 1.45)",-0,Cystitis
+N32,5,5.3100000000000005,0.94,"(0.12, 1.76)",-0,Other disorders of bladder
+N63,1,0.88,1.14,"(-1.09, 3.37)",0,Unspecified lump in breast
+N99,2,1.99,1.01,"(-0.38, 2.4)",0,"Intraop and postproc comp and disorders of GU sys, NEC"
+R10,4,3.74,1.07,"(0.03, 2.11)",0,Abdominal and pelvic pain
+R22,2,1.73,1.16,"(-0.45, 2.77)",0,"Localized swelling, mass and lump of skin, subcu"
+R32,3,2.41,1.24,"(-0.17, 2.65)",0,Unspecified urinary incontinence
+R50,7,6.55,1.07,"(0.29, 1.85)",0,Fever of other and unknown origin
+R59,2,1.67,1.2,"(-0.47, 2.87)",0,Enlarged lymph nodes
+R73,8,7.5600000000000005,1.06,"(0.33, 1.79)",0,Elevated blood glucose level
+R79,6,6.26,0.96,"(0.2, 1.72)",-0,Other abnormal findings of blood chemistry
+T30,6,5.55,1.08,"(0.22, 1.94)",0,"Burn and corrosion, body region unspecified"
+T75,25,24.71,1.01,"(0.62, 1.4)",0,Other and unspecified effects of other external causes
+T88,6,5.49,1.09,"(0.21, 1.97)",0,"Oth complications of surgical and medical care, NEC"
+B94,1,1.2,0.83,"(-0.8, 2.46)",-0.01,Sequelae of other and unsp infectious and parasitic diseases
+C43,15,18.66,0.8,"(0.39, 1.21)",-0.01,Malignant melanoma of skin
+C83,10,11.28,0.89,"(0.34, 1.44)",-0.01,Non-follicular lymphoma
+D50,22,25.45,0.86,"(0.51, 1.21)",-0.01,Iron deficiency anemia
+D65,9,10.25,0.88,"(0.31, 1.45)",-0.01,Disseminated intravascular coagulation
+E05,14,15.940000000000001,0.88,"(0.43, 1.33)",-0.01,Thyrotoxicosis [hyperthyroidism]
+G21,3,3.44,0.87,"(-0.11, 1.85)",-0.01,Secondary parkinsonism
+I33,2,2.39,0.84,"(-0.32, 2)",-0.01,Acute and subacute endocarditis
+I63,162,165.77,0.98,"(0.82, 1.14)",-0.01,Cerebral infarction
+J61,6,8.72,0.69,"(0.14, 1.24)",-0.01,Pneumoconiosis due to asbestos and other mineral fibers
+K27,7,7.87,0.89,"(0.22, 1.56)",-0.01,"Peptic ulcer, site unspecified"
+K85,13,15.08,0.86,"(0.39, 1.33)",-0.01,Acute pancreatitis
+M35,15,18.82,0.8,"(0.39, 1.21)",-0.01,Other systemic involvement of connective tissue
+M54,18,21.31,0.84,"(0.45, 1.23)",-0.01,Dorsalgia
+M85,32,34.91,0.92,"(0.61, 1.23)",-0.01,Other disorders of bone density and structure
+A09,10,14.280000000000001,0.7,"(0.27, 1.13)",-0.02,"Infectious gastroenteritis and colitis, unspecified"
+C82,3,4.29,0.7,"(-0.08, 1.48)",-0.02,Follicular lymphoma
+C84,1,1.51,0.66,"(-0.63, 1.95)",-0.02,Mature T/NK-cell lymphomas
+E16,7,11.11,0.63,"(0.16, 1.1)",-0.02,Other disorders of pancreatic internal secretion
+H05,1,1.45,0.69,"(-0.66, 2.04)",-0.02,Disorders of orbit
+I31,7,8.69,0.81,"(0.22, 1.4)",-0.02,Other diseases of pericardium
+I34,41,46.2,0.89,"(0.62, 1.16)",-0.02,Nonrheumatic mitral valve disorders
+I60,8,10.21,0.78,"(0.23, 1.33)",-0.02,Nontraumatic subarachnoid hemorrhage
+I74,17,22.099999999999998,0.77,"(0.4, 1.14)",-0.02,Arterial embolism and thrombosis
+I83,1,1.48,0.68,"(-0.65, 2.01)",-0.02,Varicose veins of lower extremities
+K50,6,8.82,0.68,"(0.13, 1.23)",-0.02,Crohn's disease [regional enteritis]
+K57,16,20.14,0.79,"(0.4, 1.18)",-0.02,Diverticular disease of intestine
+K59,8,11.83,0.68,"(0.21, 1.15)",-0.02,Other functional intestinal disorders
+K62,2,3.53,0.57,"(-0.21, 1.35)",-0.02,Other diseases of anus and rectum
+K86,4,5.38,0.74,"(0.01, 1.47)",-0.02,Other diseases of pancreas
+L02,10,12.86,0.78,"(0.29, 1.27)",-0.02,"Cutaneous abscess, furuncle and carbuncle"
+M25,54,60.31,0.9,"(0.66, 1.14)",-0.02,"Other joint disorder, not elsewhere classified"
+R31,5,9.07,0.55,"(0.06, 1.04)",-0.02,Hematuria
+T78,1,1.58,0.63,"(-0.6, 1.86)",-0.02,"Adverse effects, not elsewhere classified"
+C67,63,72.08,0.87,"(0.65, 1.09)",-0.03,Malignant neoplasm of bladder
+F31,11,16.57,0.66,"(0.27, 1.05)",-0.03,Bipolar disorder
+H26,1,2.07,0.48,"(-0.46, 1.42)",-0.03,Other cataract
+H53,1,1.86,0.54,"(-0.52, 1.6)",-0.03,Visual disturbances
+I20,7,14.9,0.47,"(0.12, 0.82)",-0.03,Angina pectoris
+K51,4,6.34,0.63,"(0, 1.26)",-0.03,Ulcerative colitis
+M46,2,4.05,0.49,"(-0.2, 1.18)",-0.03,Other inflammatory spondylopathies
+N00,14,22.22,0.63,"(0.3, 0.96)",-0.03,Acute nephritic syndrome
+R33,12,18.43,0.65,"(0.28, 1.02)",-0.03,Retention of urine
+T86,3,4.75,0.63,"(-0.08, 1.34)",-0.03,Complications of transplanted organs and tissue
+A04,39,49.13,0.79,"(0.54, 1.04)",-0.04,Other bacterial intestinal infections
+B18,35,43.410000000000004,0.81,"(0.54, 1.08)",-0.04,Chronic viral hepatitis
+G82,2,4.43,0.45,"(-0.18, 1.08)",-0.04,Paraplegia (paraparesis) and quadriplegia (quadriparesis)
+I44,29,40.96,0.71,"(0.46, 0.96)",-0.04,Atrioventricular and left bundle-branch block
+I87,5,9.44,0.53,"(0.06, 1)",-0.04,Other disorders of veins
+J93,13,21.07,0.62,"(0.29, 0.95)",-0.04,Pneumothorax and air leak
+K22,14,22.98,0.61,"(0.3, 0.92)",-0.04,Other diseases of esophagus
+R04,11,16.57,0.66,"(0.27, 1.05)",-0.04,Hemorrhage from respiratory passages
+C44,27,42.72,0.63,"(0.39, 0.87)",-0.05,Other and unspecified malignant neoplasm of skin
+C44,27,42.72,0.63,"(0.39, 0.87)",-0.05,Mesothelioma
+C44,27,42.72,0.63,"(0.39, 0.87)",-0.05,Kaposi's sarcoma
+C44,27,42.72,0.63,"(0.39, 0.87)",-0.05,Malignant neoplasm of prph nerves and autonomic nervous sys
+D70,3,6.3999999999999995,0.47,"(-0.06, 1)",-0.05,Neutropenia
+E10,25,36.94,0.68,"(0.41, 0.95)",-0.05,Type 1 diabetes mellitus
+F91,21,37.81,0.56,"(0.32, 0.8)",-0.05,Conduct disorders
+G40,14,26.07,0.54,"(0.27, 0.81)",-0.05,Epilepsy and recurrent seizures
+M21,1,1.87,0.53,"(-0.51, 1.57)",-0.05,Other acquired deformities of limbs
+K31,1,3.59,0.28,"(-0.27, 0.83)",-0.06,Other diseases of stomach and duodenum
+K83,7,16.59,0.42,"(0.11, 0.73)",-0.06,Other diseases of biliary tract
+L98,4,10.29,0.39,"(0.02, 0.76)",-0.06,"Oth disorders of skin, subcu, not elsewhere classified"
+M60,1,2.8,0.36,"(-0.35, 1.07)",-0.06,Myositis
+R60,11,24.48,0.45,"(0.18, 0.72)",-0.06,"Edema, not elsewhere classified"
+E83,8,17.71,0.45,"(0.14, 0.76)",-0.07,Disorders of mineral metabolism
+F41,37,55.51,0.67,"(0.45, 0.89)",-0.07,Other anxiety disorders
+I95,104,125.35,0.83,"(0.67, 0.99)",-0.07,Hypotension
+L03,34,51.87,0.66,"(0.44, 0.88)",-0.07,Cellulitis and acute lymphangitis
+R47,10,27.44,0.36,"(0.12, 0.6)",-0.07,"Speech disturbances, not elsewhere classified"
+Y84,18,35.68,0.5,"(0.26, 0.74)",-0.07,"Oth medical procedures cause abn react/compl, w/o misadvnt"
+D61,21,37.29,0.56,"(0.32, 0.8)",-0.08,Oth aplastic anemias and other bone marrow failure syndromes
+I67,201,227.35999999999999,0.88,"(0.76, 1)",-0.08,Other cerebrovascular diseases
+I82,15,32.07,0.47,"(0.23, 0.71)",-0.08,Other venous embolism and thrombosis
+I99,31,54.67,0.57,"(0.37, 0.77)",-0.08,Other and unspecified disorders of circulatory system
+K76,44,63.19,0.7,"(0.5, 0.9)",-0.08,Other diseases of liver
+M71,1,3.37,0.3,"(-0.29, 0.89)",-0.08,Other bursopathies
+N13,9,29.28,0.31,"(0.11, 0.51)",-0.08,Obstructive and reflux uropathy
+I61,41,64.48,0.64,"(0.44, 0.84)",-0.09,Nontraumatic intracerebral hemorrhage
+R02,11,31.64,0.35,"(0.15, 0.55)",-0.09,"Gangrene, not elsewhere classified"
+R19,5,15.629999999999999,0.32,"(0.05, 0.59)",-0.09,Oth symptoms and signs involving the dgstv sys and abdomen
+M06,77,105.88,0.73,"(0.57, 0.89)",-0.1,Other rheumatoid arthritis
+M80,35,59.57,0.59,"(0.39, 0.79)",-0.1,Osteoporosis with current pathological fracture
+T39,1,3.2,0.31,"(-0.3, 0.92)",-0.1,"Nonopioid analgesics, antipyretics and antirheumatics"
+T83,2,7.4799999999999995,0.27,"(-0.1, 0.64)",-0.1,Complications of genitourinary prosth dev/grft
+I45,40,71.9,0.56,"(0.38, 0.74)",-0.11,Other conduction disorders
+K65,10,25.42,0.39,"(0.15, 0.63)",-0.11,Peritonitis
+M10,16,42.97,0.37,"(0.19, 0.55)",-0.11,Gout
+R18,7,25.94,0.27,"(0.07, 0.47)",-0.11,Ascites
+R58,18,44.32,0.41,"(0.21, 0.61)",-0.11,"Hemorrhage, not elsewhere classified"
+W18,1,6.02,0.17,"(-0.16, 0.5)",-0.11,"Other slipping, tripping and stumbling and falls"
+M24,2,8.24,0.24,"(-0.09, 0.57)",-0.12,Other specific joint derangements
+M87,1,5.34,0.19,"(-0.18, 0.56)",-0.12,Osteonecrosis
+C77,2,8.08,0.25,"(-0.1, 0.6)",-0.13,Secondary malignant neoplasm of other and unspecified sites
+E43,37,70.51,0.52,"(0.34, 0.7)",-0.13,Unspecified severe protein-calorie malnutrition
+G81,24,57.68,0.42,"(0.26, 0.58)",-0.13,Hemiplegia and hemiparesis
+J80,20,47.58,0.42,"(0.24, 0.6)",-0.13,Acute respiratory distress syndrome
+J84,101,139.73,0.72,"(0.58, 0.86)",-0.13,Other interstitial pulmonary diseases
+M05,1,4.37,0.23,"(-0.22, 0.68)",-0.13,Rheumatoid arthritis with rheumatoid factor
+N40,24,67.69,0.35,"(0.21, 0.49)",-0.13,Enlarged prostate
+R91,27,65.85,0.41,"(0.25, 0.57)",-0.13,Abnormal findings on diagnostic imaging of lung
+T21,2,7.68,0.26,"(-0.09, 0.61)",-0.13,Burn and corrosion of trunk
+T42,1,4.15,0.24,"(-0.23, 0.71)",-0.13,"Antiepileptic, sedative- hypnotic and antiparkinsonism drugs"
+H40,17,47.8,0.36,"(0.18, 0.54)",-0.14,Glaucoma
+I24,11,36.3,0.3,"(0.12, 0.48)",-0.14,Other acute ischemic heart diseases
+I47,35,73.95,0.47,"(0.31, 0.63)",-0.14,Paroxysmal tachycardia
+I62,18,52.9,0.34,"(0.18, 0.5)",-0.14,Other and unspecified nontraumatic intracranial hemorrhage
+J15,31,74.37,0.42,"(0.28, 0.56)",-0.15,"Bacterial pneumonia, not elsewhere classified"
+T46,1,6.02,0.17,"(-0.16, 0.5)",-0.15,Agents primarily affecting the cardiovascular system
+E88,41,80.14,0.51,"(0.35, 0.67)",-0.16,Other and unspecified metabolic disorders
+R64,107,162.57,0.66,"(0.54, 0.78)",-0.16,Cachexia
+I12,534,590.81,0.9,"(0.82, 0.98)",-0.18,Hypertensive chronic kidney disease
+I71,45,100.08,0.45,"(0.31, 0.59)",-0.18,Aortic aneurysm and dissection
+K21,49,104.77,0.47,"(0.33, 0.61)",-0.18,Gastro-esophageal reflux disease
+K63,9,42.97,0.21,"(0.07, 0.35)",-0.18,Other diseases of intestine
+M86,16,57.3,0.28,"(0.14, 0.42)",-0.18,Osteomyelitis
+T20,2,10.82,0.18,"(-0.07, 0.43)",-0.18,"Burn and corrosion of head, face, and neck"
+T45,3,13.959999999999999,0.21,"(-0.03, 0.45)",-0.18,"Primarily systemic and hematological agents, NEC"
+T84,38,89.13,0.43,"(0.29, 0.57)",-0.18,Complications of internal orthopedic prosth dev/grft
+I69,262,323.27000000000004,0.81,"(0.71, 0.91)",-0.19,Sequelae of cerebrovascular disease
+K55,18,66.97,0.27,"(0.15, 0.39)",-0.2,Vascular disorders of intestine
+W19,6,46.21,0.13,"(0.03, 0.23)",-0.21,Unspecified fall
+E86,112,186.57999999999998,0.6,"(0.48, 0.72)",-0.22,Volume depletion
+J81,34,98.86,0.34,"(0.22, 0.46)",-0.23,Pulmonary edema
+L89,66,141.54,0.47,"(0.35, 0.59)",-0.24,Pressure ulcer
+R00,73,148.21,0.49,"(0.37, 0.61)",-0.24,Abnormalities of heart beat
+T40,8,36.94,0.22,"(0.06, 0.38)",-0.24,Narcotics and psychodysleptics
+T43,9,35.96,0.25,"(0.09, 0.41)",-0.24,"Psychotropic drugs, not elsewhere classified"
+J90,75,147.39,0.51,"(0.39, 0.63)",-0.25,"Pleural effusion, not elsewhere classified"
+W80,94,173.81,0.54,"(0.42, 0.66)",-0.25,Inhalation and ingestion of other objects causing obstruction of respiratory tract
+I42,150,227.14,0.66,"(0.56, 0.76)",-0.26,Cardiomyopathy
+T24,1,6.92,0.14,"(-0.13, 0.41)",-0.26,"Burn and corrosion of lower limb, except ankle and foot"
+I27,153,235.68,0.65,"(0.55, 0.75)",-0.27,Other pulmonary heart diseases
+K56,41,112.98,0.36,"(0.24, 0.48)",-0.28,Paralytic ileus and intestinal obstruction without hernia
+F32,76,157.07,0.48,"(0.36, 0.6)",-0.29,"Major depressive disorder, single episode"
+T82,17,88.17,0.19,"(0.09, 0.29)",-0.3,Complications of cardiac and vascular prosth dev/grft
+E03,223,326.3,0.68,"(0.58, 0.78)",-0.31,Other hypothyroidism
+G47,64,146.47,0.44,"(0.34, 0.54)",-0.31,Sleep disorders
+T50,3,22.02,0.14,"(-0.02, 0.3)",-0.31,Diuretics and oth and unsp drug/meds/biol subst
+I21,310,415.46,0.75,"(0.67, 0.83)",-0.35,STEMI & NSTEMI mocard infrc
+N39,326,448.06,0.73,"(0.65, 0.81)",-0.36,Other disorders of urinary system
+T22,1,6.98,0.14,"(-0.13, 0.41)",-0.38,"Burn and corrosion of shldr/up lmb, except wrist and hand"
+F01,117,253.87,0.46,"(0.38, 0.54)",-0.39,Vascular dementia
+K72,26,100.29,0.26,"(0.16, 0.36)",-0.4,"Hepatic failure, not elsewhere classified"
+E78,684,813.05,0.84,"(0.78, 0.9)",-0.42,Disorders of lipoprotein metabolism and other lipidemias
+R63,65,197.48999999999998,0.33,"(0.25, 0.41)",-0.42,Symptoms and signs concerning food and fluid intake
+A49,30,142.89000000000001,0.21,"(0.13, 0.29)",-0.44,Bacterial infection of unspecified site
+I73,152,303.7,0.5,"(0.42, 0.58)",-0.48,Other peripheral vascular diseases
+N19,129,294.8,0.44,"(0.36, 0.52)",-0.54,Unspecified kidney failure
+E46,146,323.9,0.45,"(0.37, 0.53)",-0.55,Unspecified protein-calorie malnutrition
+N28,94,258.84,0.36,"(0.28, 0.44)",-0.55,"Oth disorders of kidney and ureter, not elsewhere classified"
+K92,97,267.48,0.36,"(0.28, 0.44)",-0.56,Other diseases of digestive system
+R06,93,252.79000000000002,0.37,"(0.29, 0.45)",-0.57,Abnormalities of breathing
+M84,6,65.88,0.09,"(0.01, 0.17)",-0.59,Disorder of continuity of bone
+D64,343,534.96,0.64,"(0.58, 0.7)",-0.6,Other anemias
+E87,154,337.81,0.46,"(0.38, 0.54)",-0.61,"Other disorders of fluid, electrolyte and acid-base balance"
+R99,111,306.48,0.36,"(0.3, 0.42)",-0.64,Ill-defined and unknown cause of mortality
+R68,281,488.21,0.58,"(0.52, 0.64)",-0.69,Other general symptoms and signs
+I70,161,387.96999999999997,0.41,"(0.35, 0.47)",-0.71,Atherosclerosis
+J69,359,619.5500000000001,0.58,"(0.52, 0.64)",-0.8,Pneumonitis due to solids and liquids
+J18,916,1167.16,0.78,"(0.72, 0.84)",-0.81,"Pneumonia, unspecified organism"
+I49,212,460.02,0.46,"(0.4, 0.52)",-0.82,Other cardiac arrhythmias
+N18,574,954.06,0.6,"(0.54, 0.66)",-1.21,Chronic kidney disease (CKD)
+R57,80,465.09000000000003,0.17,"(0.13, 0.21)",-1.41,"Shock, not elsewhere classified"
+R62,615,1115.73,0.55,"(0.51, 0.59)",-1.44,Lack of expected normal physiol dev in childhood and adults
+R13,125,610.24,0.2,"(0.16, 0.24)",-1.45,Aphagia and dysphagia
+N17,193,642.83,0.3,"(0.26, 0.34)",-1.49,Acute kidney failure
+C79,50,416.41,0.12,"(0.08, 0.16)",-1.57,Malignant neuroendocrine tumors
+C79,50,416.41,0.12,"(0.08, 0.16)",-1.57,Secondary neuroendocrine tumors
+E11,429,905.15,0.47,"(0.43, 0.51)",-1.62,Type 2 diabetes mellitus
+C78,45,554.27,0.08,"(0.06, 0.1)",-2,Secondary malignant neoplasm of other and unspecified sites
+C78,45,554.27,0.08,"(0.06, 0.1)",-2,Malignant neuroendocrine tumors
+R09,368,1065.6399999999999,0.35,"(0.31, 0.39)",-2.27,Oth symptoms and signs involving the circ and resp sys
+A41,583,1729.39,0.34,"(0.32, 0.36)",-4.01,Other sepsis
+I50,1890,3935.44,0.48,"(0.46, 0.5)",-6.52,Heart failure
+J96,1322,3655.19,0.36,"(0.34, 0.38)",-8.48,"Respiratory failure, not elsewhere classified"
+F17,972,3141.57,0.31,"(0.29, 0.33)",-8.63,Nicotine dependence
+I46,813,4133.21,0.2,"(0.18, 0.22)",-11.95,Cardiac arrest
