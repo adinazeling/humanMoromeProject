@@ -1,0 +1,49 @@
+sub_chapter,ICD10,Obs,Exp,PMR,PMR_95CI,PAR
+Hypertensive Diseases,I10-I15,8852,5061.16,1.75,"(1.71, 1.79)",10.62
+Hypertensive heart disease,I11,3728,396.97,9.39,"(9.1, 9.68)",10.19
+Hypertensive heart and chronic kidney disease,I13,183,42.32,4.32,"(3.69, 4.95)",0.45
+Ischemic Heart Diseases,I20-I25,6168,3077.76,2,"(1.94, 2.06)",9.05
+Chronic ischemic heart disease,I25,5840,2581.39,2.26,"(2.2, 2.32)",9.43
+Mental Disorders Due To Known Physiological Conditions,F01-F09,4819,1951.01,2.47,"(2.39, 2.55)",7.47
+Unspecified dementia,F03,4638,1633.84,2.84,"(2.76, 2.92)",7.78
+Diabetes Mellitus,E08-E14,2962,2210.57,1.34,"(1.3, 1.38)",2.49
+Unspecified diabetes mellitus,E14,2508,1230.8,2.04,"(1.96, 2.12)",4.24
+"Alcohol related disorders, diseases, or exposure","F10, X45, T51, K70",735,142.95,5.14,"(4.77, 5.51)",2.48
+Alcohol related disorders,F10,404,88.45,4.57,"(4.12, 5.02)",1.33
+Accidental poisoning by and explosure to alcohol,X45,130,5.89,22.07,"(18.27, 25.87)",0.62
+Toxic effect of alcohol,T51,132,22.91,5.76,"(4.78, 6.74)",0.51
+Alcoholic liver disease,K70,69,25.7,2.68,"(2.05, 3.31)",0.21
+Chronic Lower Respiratory Diseases,J40-J47,2622,1894.38,1.38,"(1.32, 1.44)",2.39
+Other chronic obstructive pulmonary disease,J44,2401,1708.71,1.41,"(1.35, 1.47)",2.33
+Emphysema,J43,144,89.44,1.61,"(1.36, 1.86)",0.19
+Other Degenerative Diseases Of The Nervous System,G30-G32,1302,526.95,2.47,"(2.33, 2.61)",2.13
+Alzheimer's disease,G30,1162,448.49,2.59,"(2.43, 2.75)",1.93
+"Oth degenerative diseases of nervous system, NEC",G31,140,77.62,1.8,"(1.51, 2.09)",0.19
+Disorders Of Bone Density And Structure,M80-M85,854,403.33,2.12,"(1.98, 2.26)",1.44
+Osteoporosis without current pathological fracture,M81,781,100.71,7.75,"(7.2, 8.3)",1.87
+Age-related physical debility,R54,865,358.23,2.41,"(2.25, 2.57)",1.29
+Extrapyramidal And Movement Disorders,G20-G26,659,259.83,2.54,"(2.34, 2.74)",1.22
+Parkinson's disease,G20,637,229.77,2.77,"(2.55, 2.99)",1.23
+Symptoms And Signs Involving The Nervous And Musculoskeletal Systems,R25-R29,477,73.14,6.52,"(5.93, 7.11)",1.22
+Abnormalities of gait and mobility,R26,438,49.7,8.81,"(7.99, 9.63)",1.16
+Other Forms of Heart Disease,"I38, I51",676,371.07,1.82,"(1.68, 1.96)",0.97
+Complications and ill-defined descriptions of heart disease,I51,455,295.24,1.54,"(1.4, 1.68)",0.51
+"Endocarditis, valve unspecified",I38,221,75.83,2.91,"(2.52, 3.3)",0.45
+Certain Early Complications Of Trauma,T79,214,20.95,10.21,"(8.84, 11.58)",0.65
+Surgical And Other Medical Procedures As The Cause Of Abnormal Reaction,Y83-Y84,297,151.68,1.96,"(1.74, 2.18)",0.53
+"Surg op & oth surg proc cause abn react/compl, w/o misadvnt",Y83,279,116.01,2.4,"(2.13, 2.67)",0.58
+Syncope and collapse,R55,202,23.69,8.53,"(7.35, 9.71)",0.55
+"Coagulation Defects, Purpura And Other Hemorrhagic Conditions",D65-D69,263,130.09,2.02,"(1.78, 2.26)",0.48
+Other coagulation defects,D68,128,42.51,3.01,"(2.48, 3.54)",0.32
+Purpura and other hemorrhagic conditions,D69,121,68.99,1.75,"(1.44, 2.06)",0.18
+Pulmonary Heart Disease And Diseases Of Pulmonary Circulation,I26-I28,614,479.65,1.28,"(1.18, 1.38)",0.46
+Pulmonary embolism,I26,461,241.32,1.91,"(1.73, 2.09)",0.78
+"Overweight, Obesity And Other Hyperalimentation",E65-E68,257,162.17,1.58,"(1.38, 1.78)",0.41
+Malignant Neoplasms Of Respiratory And Intrathoracic Organs,C30-C39,232,132.2,1.75,"(1.51, 1.99)",0.36
+Malignant neoplasm of bronchus and lung,C34,220,116.25,1.89,"(1.64, 2.14)",0.38
+"Symptoms And Signs Involving Cognition, Perception, Emotional State And Behavior",R40-R46,182,104.74,1.74,"(1.49, 1.99)",0.24
+Dizziness and giddiness,R42,62,3.53,17.56,"(13.19, 21.93)",0.17
+Exposure To Forces Of Nature,X30-X39,77,21.18,3.64,"(2.84, 4.44)",0.19
+Systemic Atrophies Primarily Affecting The Central Nervous System,G10-G14,47,16.04,2.93,"(2.09, 3.77)",0.11
+Spinal muscular atrophy and related syndromes,G12,33,6.32,5.22,"(3.44, 7)",0.11
+"Intraoperative And Postprocedural Complications And Disorders Of Respiratory System, Not Elsewhere Classified",J95,35,13.65,2.56,"(1.72, 3.4)",0.11

@@ -1,0 +1,33 @@
+ICD10,Obs,Exp,PMR,PMR_95CI,PAR,sub_chapter
+I10-I15,8852,5061.16,1.75,"(1.71, 1.79)",10.62,Hypertensive Diseases
+I11,3728,396.97,9.39,"(9.1, 9.68)",10.19,Hypertensive heart disease
+I13,183,42.32,4.32,"(3.69, 4.95)",0.45,Hypertensive heart and chronic kidney disease
+I20-I25,6168,3077.76,2,"(1.94, 2.06)",9.05,Ischemic Heart Diseases
+I25,5840,2581.39,2.26,"(2.2, 2.32)",9.43,Chronic ischemic heart disease
+F01-F09,4819,1951.01,2.47,"(2.39, 2.55)",7.47,Mental Disorders Due To Known Physiological Conditions
+F03,4638,1633.84,2.84,"(2.76, 2.92)",7.78,Unspecified dementia
+G30-G32,1302,526.95,2.47,"(2.33, 2.61)",2.13,Other Degenerative Diseases Of The Nervous System
+G30,1162,448.49,2.59,"(2.43, 2.75)",1.93,Alzheimer's disease
+G31,140,77.62,1.8,"(1.51, 2.09)",0.19,"Oth degenerative diseases of nervous system, NEC"
+M80-M85,854,403.33,2.12,"(1.98, 2.26)",1.44,Disorders Of Bone Density And Structure
+M81,781,100.71,7.75,"(7.2, 8.3)",1.87,Osteoporosis without current pathological fracture
+G20-G26,659,259.83,2.54,"(2.34, 2.74)",1.22,Extrapyramidal And Movement Disorders
+G20,637,229.77,2.77,"(2.55, 2.99)",1.23,Parkinson's disease
+R25-R29,477,73.14,6.52,"(5.93, 7.11)",1.22,Symptoms And Signs Involving The Nervous And Musculoskeletal Systems
+R26,438,49.7,8.81,"(7.99, 9.63)",1.16,Abnormalities of gait and mobility
+T79,214,20.95,10.21,"(8.84, 11.58)",0.65,Certain Early Complications Of Trauma
+X40-X49,130,5.89,22.07,"(18.27, 25.87)",0.62,Exposure To Forces Of Nature
+Y83-Y84,297,151.68,1.96,"(1.74, 2.18)",0.53,Surgical And Other Medical Procedures As The Cause Of Abnormal Reaction
+Y83,279,116.01,2.4,"(2.13, 2.67)",0.58,"Surg op & oth surg proc cause abn react/compl, w/o misadvnt"
+D65-D69,263,130.09,2.02,"(1.78, 2.26)",0.48,"Coagulation Defects, Purpura And Other Hemorrhagic Conditions"
+D68,128,42.51,3.01,"(2.48, 3.54)",0.32,Other coagulation defects
+D69,121,68.99,1.75,"(1.44, 2.06)",0.18,Purpura and other hemorrhagic conditions
+E65-E68,257,162.17,1.58,"(1.38, 1.78)",0.41,"Overweight, Obesity And Other Hyperalimentation"
+C30-C39,232,132.2,1.75,"(1.51, 1.99)",0.36,Malignant Neoplasms Of Respiratory And Intrathoracic Organs
+C34,220,116.25,1.89,"(1.64, 2.14)",0.38,Malignant neoplasm of bronchus and lung
+R40-R46,182,104.74,1.74,"(1.49, 1.99)",0.24,"Symptoms And Signs Involving Cognition, Perception, Emotional State And Behavior"
+R42,62,3.53,17.56,"(13.19, 21.93)",0.17,Dizziness and giddiness
+X30-X39,77,21.18,3.64,"(2.84, 4.44)",0.19,Exposure To Forces Of Nature
+G10-G14,47,16.04,2.93,"(2.09, 3.77)",0.11,Systemic Atrophies Primarily Affecting The Central Nervous System
+G12,33,6.32,5.22,"(3.44, 7)",0.11,Spinal muscular atrophy and related syndromes
+J95,35,13.65,2.56,"(1.72, 3.4)",0.11,"Intraoperative And Postprocedural Complications And Disorders Of Respiratory System, Not Elsewhere Classified"

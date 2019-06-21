@@ -1,0 +1,16 @@
+ICD10,Obs,Exp,PMR,PMR_95CI,PAR,sub_chapter
+I10-I15,3906,2256.38,1.73,"(1.67, 1.79)",10.02,Hypertensive Diseases
+I20-I25,3404,1802.49,1.89,"(1.83, 1.95)",9.89,Ischemic Heart Diseases
+F01-F09,1768,791.16,2.23,"(2.13, 2.33)",5.47,Mental Disorders Due To Known Physiological Conditions
+G20-G26,429,158.58,2.71,"(2.46, 2.96)",1.71,Extrapyramidal And Movement Disorders
+G30-G32,461,204.75,2.25,"(2.05, 2.45)",1.5,Other Degenerative Diseases Of The Nervous System
+R25-R29,207,30.07,6.88,"(5.94, 7.82)",1.12,Symptoms And Signs Involving The Nervous And Musculoskeletal Systems
+X40-X49,100,4.54,22.03,"(17.72, 26.34)",0.96,Exposure To Forces Of Nature
+T79,107,10.83,9.88,"(8, 11.76)",0.66,Certain Early Complications Of Trauma
+D65-D69,145,69.52,2.09,"(1.76, 2.42)",0.56,"Coagulation Defects, Purpura And Other Hemorrhagic Conditions"
+R40-R46,84,47.660000000000004,1.76,"(1.39, 2.13)",0.23,"Symptoms And Signs Involving Cognition, Perception, Emotional State And Behavior"
+G10-G14,36,8.74,4.12,"(2.77, 5.47)",0.2,Systemic Atrophies Primarily Affecting The Central Nervous System
+X30-X39,35,11.49,3.05,"(2.05, 4.05)",0.17,Exposure To Forces Of Nature
+X30-X39,35,11.49,3.05,"(2.05, 4.05)",0.17,Accidental poisoning by and exposure to noxious substances
+Y85-Y89,23,6.55,3.51,"(2.08, 4.94)",0.11,Sequelae of external causes of morbidity and mortality
+Y40-Y59,27,12.2,2.21,"(1.37, 3.05)",0.1,"Drugs, medicaments and biological substances causing adverse effects in therapeutic use"

@@ -156,7 +156,7 @@ clean_summary = function(data, icd10_data){
 
 ```{r, include = FALSE}
 # Select icd10 code to aggregate by
-icd10_df = icd10_select("three digit")
+icd10_df = icd10_select("subgroup")
 
 # Nest data by age_grp and sex
 age_sex_nest = nest(age_sex, icd10:ra20)
@@ -166,8 +166,8 @@ age_sex_nest = nest(age_sex, icd10:ra20)
 age_sex_nest = age_sex_nest %>% 
   mutate(falls = map(.x = data, ~falls_death(.x))) %>% 
   mutate(tidy = map(.x = falls, ~tidy(.x, icd10_df))) %>% 
-  mutate(count = map(.x = data, ~count_grp(.x, three_digit)),
-         count_fall = map(.x = tidy, ~count_fall(.x, three_digit))) %>% 
+  mutate(count = map(.x = data, ~count_grp(.x, sub_chapter_group)),
+         count_fall = map(.x = tidy, ~count_fall(.x, sub_chapter_group))) %>% 
   mutate(summary = pmap(list(count, count_fall, data, falls ), pmr_count)) 
 ```
 

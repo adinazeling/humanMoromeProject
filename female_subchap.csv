@@ -1,0 +1,21 @@
+ICD10,Obs,Exp,PMR,PMR_95CI,PAR,sub_chapter
+I10-I15,4946,2804.78,1.76,"(1.7, 1.82)",11.07,Hypertensive Diseases
+F01-F09,3051,1159.85,2.63,"(2.53, 2.73)",9.17,Mental Disorders Due To Known Physiological Conditions
+I20-I25,2764,1275.27,2.17,"(2.09, 2.25)",8.38,Ischemic Heart Diseases
+J40-J47,1388,890.89,1.56,"(1.48, 1.64)",3.17,Chronic Lower Respiratory Diseases
+M80-M85,738,239.14,3.09,"(2.87, 3.31)",2.99,Disorders Of Bone Density And Structure
+G30-G32,841,322.2,2.61,"(2.43, 2.79)",2.69,Other Degenerative Diseases Of The Nervous System
+R25-R29,270,43.07,6.27,"(5.53, 7.01)",1.3,Symptoms And Signs Involving The Nervous And Musculoskeletal Systems
+G20-G26,230,101.25,2.27,"(1.98, 2.56)",0.76,Extrapyramidal And Movement Disorders
+Y83-Y84,168,63.42,2.65,"(2.26, 3.04)",0.75,Surgical And Other Medical Procedures As The Cause Of Abnormal Reaction
+T79,107,10.12,10.57,"(8.57, 12.57)",0.64,Certain Early Complications Of Trauma
+E65-E68,155,81.46,1.9,"(1.61, 2.19)",0.62,"Overweight, Obesity And Other Hyperalimentation"
+C30-C39,125,53.19,2.35,"(1.94, 2.76)",0.52,Malignant Neoplasms Of Respiratory And Intrathoracic Organs
+D65-D69,118,60.57,1.95,"(1.6, 2.3)",0.41,"Coagulation Defects, Purpura And Other Hemorrhagic Conditions"
+X40-X49,30,1.35,22.22,"(14.26, 30.18)",0.31,Exposure To Forces Of Nature
+T66-T78,100,62.6,1.6,"(1.29, 1.91)",0.26,Other And Unspecified Effects Of External Causes
+R40-R46,98,57.08,1.72,"(1.39, 2.05)",0.24,"Symptoms And Signs Involving Cognition, Perception, Emotional State And Behavior"
+X30-X39,42,9.69,4.33,"(3.02, 5.64)",0.22,Exposure To Forces Of Nature
+X30-X39,42,9.69,4.33,"(3.02, 5.64)",0.22,Accidental poisoning by and exposure to noxious substances
+D37-D48,89,55.37,1.61,"(1.28, 1.94)",0.21,"Neoplasms Of Uncertain Behavior, Polycythemia Vera And Myelodysplastic Syndromes"
+J95,19,5.49,3.46,"(1.91, 5.01)",0.16,"Intraoperative And Postprocedural Complications And Disorders Of Respiratory System, Not Elsewhere Classified"
