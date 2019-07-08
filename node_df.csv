@@ -1,0 +1,62 @@
+id,major,chapter
+I25,Chronic ischemic heart disease,Diseases of the circulatory system
+I11,Hypertensive heart disease,Diseases of the circulatory system
+I10,Essential (primary) hypertension,Diseases of the circulatory system
+J44,Other chronic obstructive pulmonary disease,Diseases of the respiratory system
+I48,Atrial fibrillation and flutter,Diseases of the circulatory system
+F03,Unspecified dementia,"Mental, Behavioral and Neurodevelopmental disorders"
+M81,Osteoporosis without current pathological fracture,Diseases of the musculoskeletal system and connective tissue
+X45,Accidental poisoning by and explosure to alcohol,External causes of morbidity
+Y83,"Surg op & oth surg proc cause abn react/compl, w/o misadvnt",External causes of morbidity
+R54,Age-related physical debility,"Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified"
+R26,Abnormalities of gait and mobility,"Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified"
+G20,Parkinson's disease,Diseases of the nervous system
+E66,Overweight and obesity,"Endocrine, nutritional and metabolic diseases"
+I38,"Endocarditis, valve unspecified",Diseases of the circulatory system
+I64,"Stroke, not specified as haemorrhage or infarction",Diseases of the circulatory system
+X31,Exposure to excessive natural cold,External causes of morbidity
+I51,Complications and ill-defined descriptions of heart disease,Diseases of the circulatory system
+R53,Malaise and fatigue,"Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified"
+R62,Lack of expected normal physiol dev in childhood and adults,"Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified"
+I80,Phlebitis and thrombophlebitis,Diseases of the circulatory system
+J18,"Pneumonia, unspecified organism",Diseases of the respiratory system
+I35,Nonrheumatic aortic valve disorders,Diseases of the circulatory system
+I26,Pulmonary embolism,Diseases of the circulatory system
+J43,Emphysema,Diseases of the respiratory system
+N39,Other disorders of urinary system,Diseases of the genitourinary system
+R55,Syncope and collapse,"Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified"
+G30,Alzheimer's disease,Diseases of the nervous system
+I12,Hypertensive chronic kidney disease,Diseases of the circulatory system
+T51,Toxic effect of alcohol,"Injury, poisoning and certain other consequences of external causes"
+M89,Other disorders of bone,Diseases of the musculoskeletal system and connective tissue
+I13,Hypertensive heart and chronic kidney disease,Diseases of the circulatory system
+T79,"Certain early complications of trauma, NEC","Injury, poisoning and certain other consequences of external causes"
+K74,Fibrosis and cirrhosis of liver,Diseases of the digestive system
+R56,"Convulsions, not elsewhere classified","Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified"
+I63,Cerebral infarction,Diseases of the circulatory system
+E14,Unspecified diabetes mellitus,"Endocrine, nutritional and metabolic diseases"
+F10,Alcohol related disorders,"Mental, Behavioral and Neurodevelopmental disorders"
+G93,Other disorders of brain,Diseases of the nervous system
+C34,Malignant neoplasm of bronchus and lung,Neoplasms
+D68,Other coagulation defects,Diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism
+T81,"Complications of procedures, not elsewhere classified","Injury, poisoning and certain other consequences of external causes"
+K70,Alcoholic liver disease,Diseases of the digestive system
+T68,Hypothermia,"Injury, poisoning and certain other consequences of external causes"
+G31,"Oth degenerative diseases of nervous system, NEC",Diseases of the nervous system
+D69,Purpura and other hemorrhagic conditions,Diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism
+R42,Dizziness and giddiness,"Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified"
+C90,Multiple myeloma and malignant plasma cell neoplasms,Neoplasms
+D46,Myelodysplastic syndromes,Neoplasms
+C92,Myeloid leukemia,Neoplasms
+G12,Spinal muscular atrophy and related syndromes,Diseases of the nervous system
+J95,"Intraop and postproc comp and disorders of resp sys, NEC",Diseases of the respiratory system
+R52,"Pain, not elsewhere classified","Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified"
+T73,Effects of other deprivation,"Injury, poisoning and certain other consequences of external causes"
+T84,Complications of internal orthopedic prosth dev/grft,"Injury, poisoning and certain other consequences of external causes"
+E78,Disorders of lipoprotein metabolism and other lipidemias,"Endocrine, nutritional and metabolic diseases"
+D64,Other anemias,Diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism
+E11,Type 2 diabetes mellitus,"Endocrine, nutritional and metabolic diseases"
+I50,Heart failure,Diseases of the circulatory system
+J96,"Respiratory failure, not elsewhere classified",Diseases of the respiratory system
+F17,Nicotine dependence,"Mental, Behavioral and Neurodevelopmental disorders"
+W00-W19,NA,NA

@@ -243,6 +243,39 @@ age_sex_adjusted %>% knitr::kable(booktabs = T) %>%
 
 \newpage
 
+### Table 1. Characteristics of sample population
+
+```{r}
+# Initialize empty table 1
+table1 = tibble()
+
+# Summarize age groups by gender
+age_summary = age_sex %>% 
+  group_by(sex, age_grp) %>% 
+  summarize(n = n()) %>% 
+  spread(key = sex, value = n)
+age_summary = age_summary %>% 
+  mutate(`F%` = (age_summary$F / dim(mort65plus)[1]) * 100,
+         `M%` = (age_summary$M / dim(mort65plus)[1]) * 100)
+
+race_summary = mort65plus %>% 
+  group_by(sex, race_recode_5) %>% 
+  summarize(n = n()) %>% 
+  spread(key = sex, value = n) %>% 
+  mutate(race_recode_5 = factor(race_recode_5)) %>% 
+  mutate(race_recode_5 = fct_recode(race_recode_5,
+                                    "Other" = "0",
+                                    "White" = "1",
+                                    "Black" = "2",
+                                    "American Indian" = "3",
+                                    "Asian" = "4"))
+
+
+```
+
+
+\newpage
+
 ### Male vs. Female Dot Plot
 
 ```{r, echo = FALSE}
@@ -301,7 +334,7 @@ test %>% ggplot(aes(PMR, reorder(ICD10, PMR))) +
 
 \newpage
 
-### PAR differences over age groups
+### Plot PAR differences over age groups
 
 ```{r, include = FALSE}
 # Select top ICD10 in age 65-69 age group
@@ -350,17 +383,9 @@ age_plot = age_sex_nest %>%
   unnest(summary) %>% 
   mutate(par = ifelse(par < 0, 0, par))
 
-# Add missing points for diseases 
+# Add missing point for R54 in 65-69 age group among females
 age_plot = age_plot %>% 
-  add_row(age_grp = "[80,85)", sex = "F", icd10 = "K70", par = 0) %>% 
-  add_row(age_grp = "[85,90)", sex = "F", icd10 = "K70", par = 0) %>% 
-  add_row(age_grp = "[90,120)", sex = "F", icd10 = "K70", par = 0) %>% 
-  add_row(age_grp = "[65,70)", sex = "F", icd10 = "R54", par = 0) %>% 
-  add_row(age_grp = "[90,120)", sex = "F", icd10 = "T51", par = 0) %>% 
-  add_row(age_grp = "[90,120)", sex = "M", icd10 = "T51", par = 0) %>% 
-  add_row(age_grp = "[90,120)", sex = "M", icd10 = "X45", par = 0) %>% 
-  add_row(age_grp = "[90,120)", sex = "F", icd10 = "X45", par = 0)
-  
+  add_row(age_grp = "[65,70)", sex = "F", icd10 = "R54", par = 0) 
 
 # Select rows which only have an icd10 code that is in the top 15 codes previously identified
 plot2 = tibble()
@@ -371,6 +396,23 @@ for (i in 1:dim(age_plot)) {
       }
   }
 }
+
+# Combine alcohol related disorders into one icd10
+# Combine obs, exp, and n values to yield new PAR
+alc_combo = plot2 %>% 
+  filter(icd10 %in% c("F10", "X45", "T51", "K70")) %>% 
+  group_by(age_grp, sex, ntotal) %>% 
+  summarize(n = sum(n), obs = sum(obs), exp = sum(exp)) %>% 
+  mutate(pmr = obs/exp,
+         prev = n/ntotal,
+         par = (prev * (pmr - 1)) / (prev * (pmr - 1) + 1),
+         par = round(100 * par, digits = 2),
+         par = replace_na(par, 0),
+         icd10 = "F10, X45, T51, K70") 
+
+# Remove alcohol specific icd10 codes and join the combined alcohol icd10 dataframe to the plotting dataset
+temp = plot2 %>% filter(!icd10 %in% c("F10", "X45", "T51", "K70"))
+plot2 = bind_rows(temp, alc_combo)
 ```
 
 ```{r, echo = FALSE, warning = FALSE}
@@ -384,32 +426,35 @@ p = plot2 %>%
                               "80-84" = "[80,85)",
                               "85-89" = "[85,90)",
                               "90+" = "[90,120)"),
-         sex = fct_recode(sex, "Male" = "M", "Female" = "F")) %>% 
+         sex = fct_recode(sex, "Male" = "M", "Female" = "F"),
+         sex = fct_relevel(sex, levels = c("Male", "Female"))) %>% 
   ggplot(aes(x = age_grp, y = par)) +
   geom_line(aes(group = icd10, color = icd10)) + 
   facet_grid(.~sex) + 
-  labs(title = "Population attributed ratio (PAR) of comorbid conditions associated with deaths from falls in adults 65+ years by sex in 2017",
+  labs(title = "Population attributable risk (PAR) of comorbid conditions associated with deaths from falls in adults 65+ years by sex in 2017",
        x = "Age Group (Years)",
-       y = "Population Attributed Ratio (PAR)") +
+       y = "Population Attributable Risk (PAR)") +
   geom_text_repel(aes(x = age_grp, y = par, label = label, color = icd10),
                   show.legend = FALSE, size = 5) + 
   scale_y_continuous(breaks = c(0, 2, 4, 6, 8, 10, 12)) + 
-  viridis::scale_color_viridis(discrete = TRUE, name = "Disease", 
-                      labels = c("Diabetes Mellitus, unspecified (E14)",
-                                 "Dementia, unspecified (F03)", 
-                                 "Alcohol Related Disorder (F10)", 
+  scale_color_manual(values = c("#374E55FF", "#DF8F44FF","#00A1D5FF", 
+                                "#B24745FF", "#79AF97FF", "#6A6599FF",
+                                "#80796BFF", "#374E5599", "#DF8F4499",
+                                "#00A1D599", "#B2474599", "#6A659999"),
+                     name = "Disease", 
+                     labels = c("Diabetes Mellitus, unspecified (E14)",
+                                "Dementia, unspecified (F03)", 
+                                "Alcohol Related Disorders, Disease, 
+                                        or Exposure  (F10, X45, T51, K70)", 
                                  "Parkinson's Disease (G20)", 
                                  "Alzheimer's Disease (G30)",
                                  "Hypertensive Heart Disease (I11)",
                                  "Chronic Ischemic Heart Disease (I25)",
                                  "Pulmonary Embolism (I26)",
                                  "Other Chronic Obstructive Pulmonary Disease (J44)",
-                                 "Alcoholic Liver Disease (K70)",
                                  "Osteoporosis (M81)",
                                  "Abnormalities of Gait and Mobility (R26)",
-                                 "Age-related Physical Disability (R54)",
-                                 "Toxic Effect of Alcohol (T51)",
-                                 "Accidental Poisoning by Alcohol (X45)")) +
+                                 "Age-related Physical Disability (R54)")) +
   theme_minimal() + 
   theme(legend.position = "bottom",
         strip.text.x = element_text(size = 13, face = "bold"),

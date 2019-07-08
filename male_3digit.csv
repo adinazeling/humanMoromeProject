@@ -1,5 +1,5 @@
 ICD10,Obs,Exp,PMR,PMR_95CI,PAR,major
-I25,3257,1533.6399999999999,2.12,"(2.04, 2.2)",10.43,Chronic ischemic heart disease
+I25,3257,1533.64,2.12,"(2.04, 2.2)",10.43,Chronic ischemic heart disease
 I11,1727,212.29,8.14,"(7.75, 8.53)",10.12,Hypertensive heart disease
 F03,1699,657.46,2.58,"(2.46, 2.7)",5.79,Unspecified dementia
 E14,1326,666.16,1.99,"(1.89, 2.09)",4.57,Unspecified diabetes mellitus
@@ -32,7 +32,7 @@ C92,30,10.17,2.95,"(1.89, 4.01)",0.17,Myeloid leukemia
 G12,25,4,6.25,"(3.8, 8.7)",0.16,Spinal muscular atrophy and related syndromes
 R42,25,1.39,17.99,"(10.93, 25.05)",0.15,Dizziness and giddiness
 C95,28,8.08,3.47,"(2.2, 4.74)",0.14,Leukemia of unspecified cell type
-C22,30,14.219999999999999,2.11,"(1.35, 2.87)",0.13,Malignant neoplasm of liver and intrahepatic bile ducts
+C22,30,14.22,2.11,"(1.35, 2.87)",0.13,Malignant neoplasm of liver and intrahepatic bile ducts
 M45,17,1.96,8.67,"(4.55, 12.79)",0.13,Ankylosing spondylitis
 C90,31,16.96,1.83,"(1.18, 2.48)",0.12,Multiple myeloma and malignant plasma cell neoplasms
 G91,30,12.79,2.35,"(1.51, 3.19)",0.12,Hydrocephalus
